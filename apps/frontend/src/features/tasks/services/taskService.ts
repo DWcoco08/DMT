@@ -26,7 +26,7 @@ export const taskService = {
     // Client-side status filter (handles DB without status column)
     if (filters?.status) {
       tasks = tasks.filter((t) => {
-        const s = t.status || (t.completed ? 'completed' : 'pending')
+        const s = t.status || (t.completed ? 'completed' : 'todo')
         return s === filters.status
       })
     }
@@ -44,12 +44,8 @@ export const taskService = {
       project_id: projectId || null,
     }
 
-    // Only include new columns if migration has been run
-    // These will be silently ignored by Supabase if columns don't exist
-    try {
-      insert.description = description || null
-      insert.status = 'pending'
-    } catch { /* ignore */ }
+    insert.description = description || null
+    insert.status = 'todo'
 
     const { data, error } = await supabase
       .from('tasks')
@@ -74,17 +70,27 @@ export const taskService = {
   },
 
   async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
-    const updates: Record<string, unknown> = { completed: status === 'completed' }
-    updates.status = status
+    const completed = status === 'completed'
 
+    // Try with status column first
     const { data, error } = await supabase
       .from('tasks')
-      .update(updates)
+      .update({ status, completed })
       .eq('id', id)
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      // Fallback: only update completed if status column doesn't exist
+      const { data: fallback, error: fbError } = await supabase
+        .from('tasks')
+        .update({ completed })
+        .eq('id', id)
+        .select()
+        .single()
+      if (fbError) throw fbError
+      return { ...fallback, status } as Task
+    }
     return data as Task
   },
 

@@ -6,7 +6,7 @@ export interface Project {
   created_at: string
 }
 
-export type TaskStatus = 'pending' | 'in_progress' | 'completed'
+export type TaskStatus = 'todo' | 'pending' | 'in_progress' | 'completed'
 
 export interface Task {
   id: string

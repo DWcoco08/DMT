@@ -8,9 +8,10 @@ import { useUpdateTaskStatus, useDeleteTask, useUpdateTask } from '../hooks/useT
 import { useProjects } from '@/features/projects/hooks/useProjects'
 
 const statusConfig: Record<TaskStatus, { label: string; color: string; bg: string; next: TaskStatus }> = {
-  pending: { label: 'Pending', color: 'border-muted-foreground', bg: '', next: 'in_progress' },
+  todo: { label: 'To Do', color: 'border-muted-foreground/50', bg: '', next: 'pending' },
+  pending: { label: 'Pending', color: 'border-yellow-500', bg: 'bg-yellow-500/30', next: 'in_progress' },
   in_progress: { label: 'In Progress', color: 'border-blue-500', bg: 'bg-blue-500/30', next: 'completed' },
-  completed: { label: 'Done', color: 'border-green-500', bg: 'bg-green-500', next: 'pending' },
+  completed: { label: 'Done', color: 'border-green-500', bg: 'bg-green-500', next: 'todo' },
 }
 
 interface TaskItemProps {
@@ -23,7 +24,7 @@ export function TaskItem({ task }: TaskItemProps) {
   const updateTask = useUpdateTask()
   const { data: projects } = useProjects()
 
-  const status = (task.status || (task.completed ? 'completed' : 'pending')) as TaskStatus
+  const status = (task.status || (task.completed ? 'completed' : 'todo')) as TaskStatus
   const config = statusConfig[status]
 
   const [isEditing, setIsEditing] = useState(false)
@@ -123,7 +124,8 @@ export function TaskItem({ task }: TaskItemProps) {
         {/* Status badge */}
         <span className={cn(
           'hidden sm:inline-flex text-[10px] font-medium px-1.5 py-0.5 rounded',
-          status === 'pending' && 'text-muted-foreground bg-muted',
+          status === 'todo' && 'text-muted-foreground/70 bg-muted/50',
+          status === 'pending' && 'text-yellow-500 bg-yellow-500/10',
           status === 'in_progress' && 'text-blue-500 bg-blue-500/10',
           status === 'completed' && 'text-green-500 bg-green-500/10',
         )}>

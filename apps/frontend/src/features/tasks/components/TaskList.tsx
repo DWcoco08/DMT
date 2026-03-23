@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { CheckCircle2, Circle, ListTodo, Loader, Search } from 'lucide-react'
+import { CheckCircle2, Circle, ListTodo, Loader, Search, ClipboardList } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
@@ -8,10 +8,11 @@ import { useTasks } from '../hooks/useTasks'
 import { TaskForm } from './TaskForm'
 import { TaskItem } from './TaskItem'
 
-type Filter = 'all' | 'pending' | 'in_progress' | 'completed'
+type Filter = 'all' | 'todo' | 'pending' | 'in_progress' | 'completed'
 
 const filters: { key: Filter; label: string; icon: React.ReactNode }[] = [
   { key: 'all', label: 'All', icon: <ListTodo className="h-3 w-3" /> },
+  { key: 'todo', label: 'To Do', icon: <ClipboardList className="h-3 w-3" /> },
   { key: 'pending', label: 'Pending', icon: <Circle className="h-3 w-3" /> },
   { key: 'in_progress', label: 'Active', icon: <Loader className="h-3 w-3" /> },
   { key: 'completed', label: 'Done', icon: <CheckCircle2 className="h-3 w-3" /> },
@@ -23,7 +24,7 @@ export function TaskList() {
 
   const taskFilters = filter === 'all'
     ? undefined
-    : { status: filter as 'pending' | 'in_progress' | 'completed' }
+    : { status: filter as 'todo' | 'pending' | 'in_progress' | 'completed' }
 
   const { data: tasks, isLoading } = useTasks(taskFilters)
 
@@ -33,6 +34,11 @@ export function TaskList() {
 
   return (
     <div className="space-y-3">
+      {/* Add task */}
+      <TaskForm />
+
+      <Separator />
+
       {/* Search */}
       <div className="relative">
         <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
@@ -44,19 +50,14 @@ export function TaskList() {
         />
       </div>
 
-      <Separator />
-
-      {/* Add task */}
-      <TaskForm />
-
       {/* Filter tabs */}
-      <div className="flex gap-1 rounded-lg bg-muted p-1">
+      <div className="flex gap-0.5 rounded-lg bg-muted p-1">
         {filters.map((f) => (
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
             className={cn(
-              'flex flex-1 items-center justify-center gap-1 rounded-md px-2 py-1.5 text-[11px] font-medium transition-colors',
+              'flex flex-1 items-center justify-center gap-1 rounded-md px-1.5 py-1.5 text-[10px] font-medium transition-colors',
               filter === f.key
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'

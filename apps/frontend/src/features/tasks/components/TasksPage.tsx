@@ -22,11 +22,12 @@ import {
 import { toast } from 'sonner'
 
 type Tab = 'tasks' | 'projects'
-type Filter = 'all' | 'pending' | 'in_progress' | 'completed'
+type Filter = 'all' | 'todo' | 'pending' | 'in_progress' | 'completed'
 type Sort = 'newest' | 'oldest' | 'name'
 
 const filterOptions: { key: Filter; label: string; icon: React.ReactNode }[] = [
   { key: 'all', label: 'All', icon: <ListTodo className="h-3.5 w-3.5" /> },
+  { key: 'todo', label: 'To Do', icon: <ClipboardList className="h-3.5 w-3.5" /> },
   { key: 'pending', label: 'Pending', icon: <Circle className="h-3.5 w-3.5" /> },
   { key: 'in_progress', label: 'Active', icon: <Loader className="h-3.5 w-3.5" /> },
   { key: 'completed', label: 'Done', icon: <CheckCircle2 className="h-3.5 w-3.5" /> },
@@ -75,7 +76,7 @@ function TasksTab() {
   const [sort, setSort] = useState<Sort>('newest')
 
   const taskFilters = {
-    ...(filter !== 'all' ? { status: filter as 'pending' | 'in_progress' | 'completed' } : {}),
+    ...(filter !== 'all' ? { status: filter as 'todo' | 'pending' | 'in_progress' | 'completed' } : {}),
     ...(projectFilter ? { project_id: projectFilter } : {}),
   }
 
@@ -93,33 +94,45 @@ function TasksTab() {
   })
 
   const total = tasks?.length ?? 0
-  const pending = tasks?.filter((t) => (t.status || 'pending') === 'pending').length ?? 0
+  const todo = tasks?.filter((t) => (t.status || 'todo') === 'todo' && !t.completed).length ?? 0
+  const pending = tasks?.filter((t) => t.status === 'pending').length ?? 0
   const inProgress = tasks?.filter((t) => t.status === 'in_progress').length ?? 0
   const completed = tasks?.filter((t) => t.status === 'completed' || t.completed).length ?? 0
 
   return (
     <div className="space-y-5">
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3">
-        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
-          <p className="text-2xl font-bold text-foreground">{total}</p>
-          <p className="text-xs text-muted-foreground mt-1">Total</p>
+      <div className="grid grid-cols-5 gap-3">
+        <div className="rounded-2xl border border-border bg-card p-3 shadow-sm text-center">
+          <p className="text-xl font-bold text-foreground">{total}</p>
+          <p className="text-[11px] text-muted-foreground mt-1">Total</p>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
-          <p className="text-2xl font-bold text-yellow-500">{pending}</p>
-          <p className="text-xs text-muted-foreground mt-1">Pending</p>
+        <div className="rounded-2xl border border-border bg-card p-3 shadow-sm text-center">
+          <p className="text-xl font-bold text-muted-foreground">{todo}</p>
+          <p className="text-[11px] text-muted-foreground mt-1">To Do</p>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
-          <p className="text-2xl font-bold text-blue-500">{inProgress}</p>
-          <p className="text-xs text-muted-foreground mt-1">In Progress</p>
+        <div className="rounded-2xl border border-border bg-card p-3 shadow-sm text-center">
+          <p className="text-xl font-bold text-yellow-500">{pending}</p>
+          <p className="text-[11px] text-muted-foreground mt-1">Pending</p>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
-          <p className="text-2xl font-bold text-green-500">{completed}</p>
-          <p className="text-xs text-muted-foreground mt-1">Completed</p>
+        <div className="rounded-2xl border border-border bg-card p-3 shadow-sm text-center">
+          <p className="text-xl font-bold text-blue-500">{inProgress}</p>
+          <p className="text-[11px] text-muted-foreground mt-1">Active</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-3 shadow-sm text-center">
+          <p className="text-xl font-bold text-green-500">{completed}</p>
+          <p className="text-[11px] text-muted-foreground mt-1">Done</p>
         </div>
       </div>
 
-      {/* Search */}
+      {/* Add task */}
+      <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+        <TaskForm />
+      </div>
+
+      <Separator />
+
+      {/* Search + filters */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -134,13 +147,6 @@ function TasksTab() {
           <option value="oldest">Oldest</option>
           <option value="name">Name</option>
         </select>
-      </div>
-
-      <Separator />
-
-      {/* Add task */}
-      <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
-        <TaskForm />
       </div>
 
       {/* Filter tabs */}
