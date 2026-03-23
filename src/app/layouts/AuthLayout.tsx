@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import { Toaster } from '@/components/ui/sonner'
 
 export function AuthLayout() {
   return (
@@ -10,6 +11,7 @@ export function AuthLayout() {
         </div>
         <Outlet />
       </div>
+      <Toaster />
     </div>
   )
 }
