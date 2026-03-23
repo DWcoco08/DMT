@@ -12,10 +12,10 @@ export function SettingsPage() {
         <p className="text-sm text-muted-foreground">Manage your account and preferences</p>
       </div>
 
-      {/* Sections stacked */}
-      <div className="space-y-5 max-w-2xl">
-        {/* Profile */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      {/* Row 1: Profile + Appearance */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
+        {/* Profile — narrower */}
+        <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
               <User className="h-4 w-4 text-primary" />
@@ -28,8 +28,8 @@ export function SettingsPage() {
           <ProfileForm />
         </div>
 
-        {/* Appearance */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+        {/* Appearance — wider for 3x2 grid */}
+        <div className="lg:col-span-3 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-500/10">
               <Palette className="h-4 w-4 text-purple-500" />
@@ -41,20 +41,20 @@ export function SettingsPage() {
           </div>
           <ThemeToggle />
         </div>
+      </div>
 
-        {/* GitHub */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-500/10">
-              <Github className="h-4 w-4 text-zinc-500" />
-            </div>
-            <div>
-              <h2 className="text-base font-semibold text-foreground">GitHub Integration</h2>
-              <p className="text-xs text-muted-foreground">Connect your GitHub account to track commits</p>
-            </div>
+      {/* Row 2: GitHub — full width */}
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-500/10">
+            <Github className="h-4 w-4 text-zinc-500" />
           </div>
-          <GitHubConnect />
+          <div>
+            <h2 className="text-base font-semibold text-foreground">GitHub Integration</h2>
+            <p className="text-xs text-muted-foreground">Connect your GitHub account to track commits</p>
+          </div>
         </div>
+        <GitHubConnect />
       </div>
     </div>
   )
