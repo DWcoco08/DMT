@@ -32,7 +32,7 @@ export function PomodoroPage() {
   const strokeDashoffset = circumference * (1 - progress)
 
   return (
-    <div className="flex h-[calc(100vh-2rem)] flex-col gap-3 -mt-2 md:-mt-1">
+    <div className="flex h-[calc(100vh-3.5rem)] flex-col gap-3 overflow-hidden">
       {/* Header — compact */}
       <div className="flex items-center gap-3 shrink-0">
         <Cpu className="h-6 w-6 text-red-500" />
