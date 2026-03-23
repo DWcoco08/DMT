@@ -138,7 +138,7 @@ export function LoginForm() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-[#0d0508] px-2 text-muted-foreground">or</span>
+          <span className="bg-[#120509] px-2 text-muted-foreground">or</span>
         </div>
       </div>
 

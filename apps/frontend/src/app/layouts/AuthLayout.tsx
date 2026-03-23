@@ -58,15 +58,15 @@ export function AuthLayout() {
         </p>
       </div>
 
-      {/* Right panel — dark gradient consistent with left */}
+      {/* Right panel — warmer red-black, distinct from sidebar */}
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden p-6 lg:w-1/2">
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#1a0a0a] to-[#0d0508]" />
+        {/* Gradient background — brighter red undertone than sidebar */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0608] via-[#1c0c0e] to-[#120509]" />
 
-        {/* Subtle red glow accents */}
-        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-red-900/20 blur-[120px]" />
-        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-red-800/15 blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-red-950/10 blur-[100px]" />
+        {/* Red glow accents — more vivid */}
+        <div className="absolute -top-32 -right-32 h-72 w-72 rounded-full bg-red-800/25 blur-[100px]" />
+        <div className="absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-red-700/20 blur-[100px]" />
+        <div className="absolute top-1/3 right-1/4 h-60 w-60 rounded-full bg-red-900/15 blur-[80px]" />
 
         {/* Mobile logo */}
         <div className="relative z-10 mb-8 flex items-center gap-2 lg:hidden">
