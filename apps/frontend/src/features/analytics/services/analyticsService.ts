@@ -117,4 +117,30 @@ export const analyticsService = {
       tasksCompletedToday: tasksToday.data.length,
     }
   },
+
+  async getAllTimeStats(): Promise<{
+    totalHours: number
+    totalSessions: number
+    avgHoursPerDay: number
+    longestSession: number
+  }> {
+    const { data, error } = await supabase
+      .from('time_sessions')
+      .select('duration, start_time')
+      .not('end_time', 'is', null)
+
+    if (error) throw error
+
+    const totalSeconds = data.reduce((sum, r) => sum + (r.duration ?? 0), 0)
+    const longestSession = data.reduce((max, r) => Math.max(max, r.duration ?? 0), 0)
+
+    const days = new Set(data.map((r) => format(new Date(r.start_time), 'yyyy-MM-dd'))).size
+
+    return {
+      totalHours: Math.round((totalSeconds / 3600) * 10) / 10,
+      totalSessions: data.length,
+      avgHoursPerDay: days > 0 ? Math.round((totalSeconds / 3600 / days) * 10) / 10 : 0,
+      longestSession,
+    }
+  },
 }

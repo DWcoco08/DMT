@@ -24,3 +24,11 @@ export function useProductivityStats() {
     staleTime: 1000 * 60,
   })
 }
+
+export function useAllTimeStats() {
+  return useQuery({
+    queryKey: ['analytics', 'all-time'],
+    queryFn: analyticsService.getAllTimeStats,
+    staleTime: 1000 * 60 * 5,
+  })
+}

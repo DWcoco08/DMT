@@ -33,6 +33,9 @@ const DataPage = lazy(() =>
 const TimeLogPage = lazy(() =>
   import('@/features/time-tracking/components/TimeLogPage').then((m) => ({ default: m.TimeLogPage }))
 )
+const ReportsPage = lazy(() =>
+  import('@/features/analytics/components/ReportsPage').then((m) => ({ default: m.ReportsPage }))
+)
 
 function PageFallback() {
   return (
@@ -115,6 +118,14 @@ export function AppRouter() {
               element={
                 <Suspense fallback={<PageFallback />}>
                   <AnimatedPage><TasksPage /></AnimatedPage>
+                </Suspense>
+              }
+            />
+            <Route
+              path="/reports"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <AnimatedPage><ReportsPage /></AnimatedPage>
                 </Suspense>
               }
             />
