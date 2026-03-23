@@ -38,12 +38,13 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
       ref={setNodeRef}
       style={style}
       layout={!isDragging}
+      {...(isEditMode ? { ...attributes, ...listeners } : {})}
       className={cn(
         'relative rounded-2xl border bg-card p-4 shadow-sm',
         colSpanClass,
         isDragging && 'z-50 shadow-xl ring-2 ring-primary/30 opacity-90 scale-[1.02]',
         isOver && !isDragging && 'ring-2 ring-primary/20',
-        isEditMode && !isDragging && 'border-dashed border-primary/40 hover:border-primary/60',
+        isEditMode && !isDragging && 'border-dashed border-primary/40 hover:border-primary/60 cursor-grab active:cursor-grabbing touch-none',
         !isEditMode && 'border-border',
       )}
     >
@@ -56,15 +57,13 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
       <div className="relative mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {isEditMode && (
-            <motion.button
-              {...attributes}
-              {...listeners}
+            <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="cursor-grab touch-none rounded-md p-1 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary active:cursor-grabbing"
+              className="text-muted-foreground"
             >
               <GripVertical className="h-4 w-4" />
-            </motion.button>
+            </motion.div>
           )}
           <div>
             <h3 className="text-sm font-semibold text-foreground">{widget.title}</h3>
@@ -75,6 +74,7 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
           <motion.button
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
+            onPointerDown={(e) => e.stopPropagation()}
             onClick={() => removeWidget(widget.id)}
             className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
           >
