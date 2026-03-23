@@ -11,9 +11,9 @@ const features = [
 
 export function AuthLayout() {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#09090b]">
       {/* Left panel — branding */}
-      <div className="hidden w-1/2 flex-col justify-between bg-[#09090b] p-12 lg:flex">
+      <div className="hidden w-1/2 flex-col justify-between border-r border-zinc-800 bg-[#050505] p-12 lg:flex">
         <div>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black text-sm font-bold">
@@ -50,14 +50,14 @@ export function AuthLayout() {
         </p>
       </div>
 
-      {/* Right panel — form */}
-      <div className="flex w-full flex-col items-center justify-center bg-background p-6 lg:w-1/2">
+      {/* Right panel — form (always dark) */}
+      <div className="dark flex w-full flex-col items-center justify-center bg-[#09090b] p-6 lg:w-1/2">
         {/* Mobile logo */}
         <div className="mb-8 flex items-center gap-2 lg:hidden">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#09090b] text-white text-sm font-bold">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-black text-sm font-bold">
             D
           </div>
-          <span className="text-xl font-bold text-foreground">DMT</span>
+          <span className="text-xl font-bold text-white">DMT</span>
         </div>
 
         <div className="w-full max-w-sm">
