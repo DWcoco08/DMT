@@ -23,4 +23,11 @@ export const authService = {
     if (error) throw error
     return data.session
   },
+
+  async resetPassword(email: string) {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/dashboard`,
+    })
+    if (error) throw error
+  },
 }

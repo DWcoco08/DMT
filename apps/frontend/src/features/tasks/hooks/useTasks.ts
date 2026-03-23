@@ -37,6 +37,18 @@ export function useToggleTask() {
   })
 }
 
+export function useUpdateTask() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, ...updates }: { id: string; title?: string; project_id?: string | null }) =>
+      taskService.updateTask(id, updates),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+    },
+  })
+}
+
 export function useDeleteTask() {
   const queryClient = useQueryClient()
 

@@ -55,6 +55,18 @@ export const taskService = {
     return data as Task
   },
 
+  async updateTask(id: string, updates: Partial<Pick<Task, 'title' | 'project_id'>>): Promise<Task> {
+    const { data, error } = await supabase
+      .from('tasks')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+    return data as Task
+  },
+
   async deleteTask(id: string): Promise<void> {
     const { error } = await supabase
       .from('tasks')

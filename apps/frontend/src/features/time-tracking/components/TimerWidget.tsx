@@ -24,12 +24,20 @@ export function TimerWidget() {
       <div className="relative flex items-center justify-center">
         {timer.isRunning && (
           <motion.div
-            className="absolute inset-0 rounded-full bg-green-500/20"
+            className={`absolute inset-0 rounded-full ${
+              timer.warningLevel === 'danger' ? 'bg-red-500/20' :
+              timer.warningLevel === 'warning' ? 'bg-yellow-500/20' :
+              'bg-green-500/20'
+            }`}
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
         )}
-        <div className="relative flex h-24 w-24 items-center justify-center rounded-full border-4 border-border bg-card">
+        <div className={`relative flex h-24 w-24 items-center justify-center rounded-full border-4 bg-card ${
+          timer.warningLevel === 'danger' ? 'border-red-500' :
+          timer.warningLevel === 'warning' ? 'border-yellow-500' :
+          'border-border'
+        }`}>
           <span className="text-lg font-mono font-bold text-foreground tabular-nums">
             {formatDuration(timer.elapsed)}
           </span>
