@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# CodeCraft
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A developer productivity platform for tracking time, managing tasks, and visualizing coding habits.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Frontend:** React, TypeScript, Vite, TailwindCSS, shadcn/ui, Zustand, TanStack Query, Recharts, Framer Motion
 
-## React Compiler
+**Backend:** Supabase (PostgreSQL, Auth, RLS, Realtime)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Tooling:** pnpm, Turborepo
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+codecraft/
+├── apps/
+│   ├── frontend/        # React SPA
+│   └── backend/         # Supabase migrations
+├── turbo.json
+├── pnpm-workspace.yaml
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 20+
+- pnpm 10+
+- Supabase project
+
+### Setup
+
+```bash
+# Install dependencies
+pnpm install
+
+# Configure environment
+cp apps/frontend/.env.local.example apps/frontend/.env.local
+# Edit .env.local with your Supabase credentials
+
+# Run database migrations
+# Paste apps/backend/supabase/migrations/001_initial_schema.sql
+# into your Supabase SQL Editor
+
+# Start dev server
+pnpm dev
 ```
+
+### Environment Variables
+
+```
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+## Features
+
+- **Auth** — Email/password with session persistence
+- **Dashboard** — Customizable bento grid with drag-and-drop widgets
+- **Time Tracking** — Start/stop timer per project, session history
+- **Tasks** — CRUD with filters (all/pending/completed)
+- **Analytics** — Daily/weekly coding hours charts
+- **Projects** — Organize work with color-coded projects
+- **GitHub** — Connect via PAT, view commits per day
+- **Settings** — Profile, theme (light/dark/system), project management
+- **Keyboard Shortcuts** — `Ctrl+K` command palette
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start frontend dev server |
+| `pnpm build` | Production build |
+| `pnpm lint` | Run ESLint |
+
+## License
+
+MIT
