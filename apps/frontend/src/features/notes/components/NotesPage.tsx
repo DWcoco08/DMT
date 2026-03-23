@@ -50,8 +50,8 @@ export function NotesPage() {
 
       {/* Two-column layout */}
       <div className="flex gap-4 min-h-[60vh]">
-        {/* Note list */}
-        <div className="w-full space-y-1.5 lg:w-72 shrink-0">
+        {/* Note list — hide on mobile when a note is selected */}
+        <div className={cn('w-full space-y-1.5 lg:w-72 shrink-0', selectedNote && 'hidden lg:block')}>
           {isLoading ? (
             [1, 2, 3].map((i) => <div key={i} className="h-16 animate-pulse rounded-lg bg-muted" />)
           ) : !notes?.length ? (
@@ -99,9 +99,17 @@ export function NotesPage() {
         </div>
 
         {/* Editor */}
-        <div className="hidden lg:flex flex-1 rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className={cn('flex-1 rounded-2xl border border-border bg-card p-6 shadow-sm', selectedNote ? 'flex' : 'hidden lg:flex')}>
           {selectedNote ? (
-            <NoteEditor key={selectedNote.id} note={selectedNote} />
+            <div className="flex w-full flex-col">
+              <button
+                onClick={() => setSelectedId(null)}
+                className="mb-3 text-xs text-primary hover:underline self-start lg:hidden"
+              >
+                &larr; Back to notes
+              </button>
+              <NoteEditor key={selectedNote.id} note={selectedNote} />
+            </div>
           ) : (
             <div className="flex flex-1 items-center justify-center">
               <p className="text-sm text-muted-foreground">Select a note or create a new one</p>

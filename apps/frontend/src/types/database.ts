@@ -6,11 +6,15 @@ export interface Project {
   created_at: string
 }
 
+export type TaskStatus = 'pending' | 'in_progress' | 'completed'
+
 export interface Task {
   id: string
   user_id: string
   project_id: string | null
   title: string
+  description: string | null
+  status: TaskStatus
   completed: boolean
   created_at: string
 }

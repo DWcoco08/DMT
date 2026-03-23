@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { Search, CheckCircle2, Circle, ListTodo, ClipboardList } from 'lucide-react'
+import { Search, CheckCircle2, Circle, ListTodo, ClipboardList, Loader } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { useTasks } from '../hooks/useTasks'
@@ -8,12 +8,13 @@ import { useProjects } from '@/features/projects/hooks/useProjects'
 import { TaskForm } from './TaskForm'
 import { TaskItem } from './TaskItem'
 
-type Filter = 'all' | 'pending' | 'completed'
+type Filter = 'all' | 'pending' | 'in_progress' | 'completed'
 type Sort = 'newest' | 'oldest' | 'name'
 
 const filterOptions: { key: Filter; label: string; icon: React.ReactNode }[] = [
   { key: 'all', label: 'All', icon: <ListTodo className="h-3.5 w-3.5" /> },
   { key: 'pending', label: 'Pending', icon: <Circle className="h-3.5 w-3.5" /> },
+  { key: 'in_progress', label: 'In Progress', icon: <Loader className="h-3.5 w-3.5" /> },
   { key: 'completed', label: 'Done', icon: <CheckCircle2 className="h-3.5 w-3.5" /> },
 ]
 
@@ -24,7 +25,7 @@ export function TasksPage() {
   const [sort, setSort] = useState<Sort>('newest')
 
   const taskFilters = {
-    ...(filter !== 'all' ? { completed: filter === 'completed' } : {}),
+    ...(filter !== 'all' ? { status: filter as 'pending' | 'in_progress' | 'completed' } : {}),
     ...(projectFilter ? { project_id: projectFilter } : {}),
   }
 
@@ -42,8 +43,9 @@ export function TasksPage() {
   })
 
   const total = tasks?.length ?? 0
-  const pending = tasks?.filter((t) => !t.completed).length ?? 0
-  const completed = tasks?.filter((t) => t.completed).length ?? 0
+  const pending = tasks?.filter((t) => (t.status || 'pending') === 'pending').length ?? 0
+  const inProgress = tasks?.filter((t) => t.status === 'in_progress').length ?? 0
+  const completed = tasks?.filter((t) => t.status === 'completed' || t.completed).length ?? 0
 
   return (
     <div className="space-y-6">
@@ -54,14 +56,18 @@ export function TasksPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-4 gap-3">
         <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
           <p className="text-2xl font-bold text-foreground">{total}</p>
-          <p className="text-xs text-muted-foreground mt-1">Total Tasks</p>
+          <p className="text-xs text-muted-foreground mt-1">Total</p>
         </div>
         <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
           <p className="text-2xl font-bold text-yellow-500">{pending}</p>
           <p className="text-xs text-muted-foreground mt-1">Pending</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-blue-500">{inProgress}</p>
+          <p className="text-xs text-muted-foreground mt-1">In Progress</p>
         </div>
         <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
           <p className="text-2xl font-bold text-green-500">{completed}</p>

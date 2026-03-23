@@ -71,7 +71,7 @@ export function ReportsPage() {
           <p className="py-8 text-center text-sm text-muted-foreground">No data yet</p>
         ) : (
           <ResponsiveContainer width="100%" height={Math.max(200, projectChartData.length * 45)}>
-            <BarChart data={projectChartData} layout="vertical" margin={{ left: 80 }}>
+            <BarChart data={projectChartData} layout="vertical" margin={{ left: 20, right: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" horizontal={false} />
               <XAxis
                 type="number"
@@ -86,7 +86,7 @@ export function ReportsPage() {
                 tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
                 axisLine={false}
                 tickLine={false}
-                width={75}
+                width={70}
               />
               <Tooltip
                 contentStyle={{

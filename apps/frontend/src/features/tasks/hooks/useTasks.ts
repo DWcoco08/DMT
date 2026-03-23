@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { taskService, type TaskFilters } from '../services/taskService'
 import { activityService } from '@/features/activity/services/activityService'
+import type { TaskStatus } from '@/types/database'
 
 export function useTasks(filters?: TaskFilters) {
   return useQuery({
@@ -13,8 +14,8 @@ export function useCreateTask() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ title, projectId }: { title: string; projectId?: string }) =>
-      taskService.createTask(title, projectId),
+    mutationFn: ({ title, description, projectId }: { title: string; description?: string; projectId?: string }) =>
+      taskService.createTask(title, description, projectId),
     onSuccess: (task) => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
       activityService.logActivity('task_created', { title: task.title })
@@ -22,15 +23,15 @@ export function useCreateTask() {
   })
 }
 
-export function useToggleTask() {
+export function useUpdateTaskStatus() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, completed }: { id: string; completed: boolean }) =>
-      taskService.toggleTask(id, completed),
+    mutationFn: ({ id, status }: { id: string; status: TaskStatus }) =>
+      taskService.updateTaskStatus(id, status),
     onSuccess: (task) => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
-      if (task.completed) {
+      if (task.status === 'completed') {
         activityService.logActivity('task_completed', { title: task.title })
       }
     },
@@ -41,7 +42,7 @@ export function useUpdateTask() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, ...updates }: { id: string; title?: string; project_id?: string | null }) =>
+    mutationFn: ({ id, ...updates }: { id: string; title?: string; description?: string; project_id?: string | null }) =>
       taskService.updateTask(id, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })

@@ -1,7 +1,8 @@
 import { supabase } from '@/lib/supabase'
-import type { Task } from '@/types/database'
+import type { Task, TaskStatus } from '@/types/database'
 
 export interface TaskFilters {
+  status?: TaskStatus
   completed?: boolean
   project_id?: string
 }
@@ -13,6 +14,9 @@ export const taskService = {
       .select('*')
       .order('created_at', { ascending: false })
 
+    if (filters?.status) {
+      query = query.eq('status', filters.status)
+    }
     if (filters?.completed !== undefined) {
       query = query.eq('completed', filters.completed)
     }
@@ -25,7 +29,7 @@ export const taskService = {
     return data as Task[]
   },
 
-  async createTask(title: string, projectId?: string): Promise<Task> {
+  async createTask(title: string, description?: string, projectId?: string): Promise<Task> {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) throw new Error('Not authenticated')
 
@@ -34,7 +38,9 @@ export const taskService = {
       .insert({
         user_id: user.id,
         title,
+        description: description || null,
         project_id: projectId || null,
+        status: 'pending',
       })
       .select()
       .single()
@@ -43,10 +49,10 @@ export const taskService = {
     return data as Task
   },
 
-  async toggleTask(id: string, completed: boolean): Promise<Task> {
+  async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
     const { data, error } = await supabase
       .from('tasks')
-      .update({ completed })
+      .update({ status, completed: status === 'completed' })
       .eq('id', id)
       .select()
       .single()
@@ -55,7 +61,7 @@ export const taskService = {
     return data as Task
   },
 
-  async updateTask(id: string, updates: Partial<Pick<Task, 'title' | 'project_id'>>): Promise<Task> {
+  async updateTask(id: string, updates: Partial<Pick<Task, 'title' | 'description' | 'project_id'>>): Promise<Task> {
     const { data, error } = await supabase
       .from('tasks')
       .update(updates)
