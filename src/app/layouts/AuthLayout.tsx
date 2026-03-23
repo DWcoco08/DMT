@@ -11,9 +11,9 @@ const features = [
 
 export function AuthLayout() {
   return (
-    <div className="flex min-h-screen bg-[#09090b]">
-      {/* Left panel — branding */}
-      <div className="hidden w-1/2 flex-col justify-between border-r border-zinc-800 bg-[#050505] p-12 lg:flex">
+    <div className="flex min-h-screen">
+      {/* Left panel — dark branding */}
+      <div className="hidden w-1/2 flex-col justify-between bg-[#09090b] p-12 lg:flex">
         <div>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black text-sm font-bold">
@@ -50,17 +50,39 @@ export function AuthLayout() {
         </p>
       </div>
 
-      {/* Right panel — form (always dark) */}
-      <div className="dark flex w-full flex-col items-center justify-center bg-[#09090b] p-6 lg:w-1/2">
+      {/* Right panel — always white */}
+      <div className="not-dark flex w-full flex-col items-center justify-center bg-white p-6 text-zinc-900 lg:w-1/2"
+        style={{ colorScheme: 'light' }}
+      >
+        {/* Force light CSS variables on this panel */}
+        <style>{`
+          .auth-form-panel, .auth-form-panel * {
+            --color-background: hsl(0 0% 100%);
+            --color-foreground: hsl(240 10% 3.9%);
+            --color-card: hsl(0 0% 100%);
+            --color-card-foreground: hsl(240 10% 3.9%);
+            --color-primary: hsl(239 84% 67%);
+            --color-primary-foreground: hsl(0 0% 98%);
+            --color-muted: hsl(240 4.8% 95.9%);
+            --color-muted-foreground: hsl(240 3.8% 46.1%);
+            --color-border: hsl(240 5.9% 90%);
+            --color-input: hsl(240 5.9% 90%);
+            --color-ring: hsl(239 84% 67%);
+            --color-destructive: hsl(0 84.2% 60.2%);
+            --color-accent: hsl(240 4.8% 95.9%);
+            --color-accent-foreground: hsl(240 5.9% 10%);
+          }
+        `}</style>
+
         {/* Mobile logo */}
         <div className="mb-8 flex items-center gap-2 lg:hidden">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-black text-sm font-bold">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#09090b] text-white text-sm font-bold">
             D
           </div>
-          <span className="text-xl font-bold text-white">DMT</span>
+          <span className="text-xl font-bold text-zinc-900">DMT</span>
         </div>
 
-        <div className="w-full max-w-sm">
+        <div className="auth-form-panel w-full max-w-sm">
           <Outlet />
         </div>
       </div>
