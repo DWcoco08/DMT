@@ -28,37 +28,37 @@ export function AuthLayout() {
       <div className="hidden w-1/2 flex-col justify-center items-center p-12 lg:flex relative">
         <div className="absolute inset-0 bg-black/50" />
 
-        <div className="relative z-10 space-y-8 max-w-lg">
+        <div className="relative z-10 space-y-8 max-w-xl">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <img src="/logo-icon.png" alt="DevPulse" className="h-12 w-12 object-contain" />
-            <span className="text-3xl font-extrabold text-white tracking-tight drop-shadow-lg">DevPulse</span>
+          <div className="flex items-center gap-4">
+            <img src="/logo-icon.png" alt="DevPulse" className="h-14 w-14 object-contain" />
+            <span className="text-4xl font-extrabold text-white tracking-tight drop-shadow-lg">DevPulse</span>
           </div>
 
           {/* Tagline */}
           <div>
-            <h2 className="text-4xl font-bold leading-[1.2] tracking-tight text-white drop-shadow-lg">
+            <h2 className="text-5xl font-bold leading-[1.15] tracking-tight text-white drop-shadow-lg">
               Your dev workflow.<br />One platform.<br />Zero friction.
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-zinc-300 drop-shadow-sm">
+            <p className="mt-5 text-lg leading-relaxed text-zinc-200 drop-shadow-sm">
               Time tracking, task management, focus timers, analytics, and notes — everything to stay productive.
             </p>
           </div>
 
           {/* Features grid — 2 columns */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             {features.map((f) => (
-              <div key={f.text} className="flex items-center gap-2.5">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/10 backdrop-blur-sm">
-                  <f.icon className="h-3.5 w-3.5 text-white" />
+              <div key={f.text} className="flex items-center gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
+                  <f.icon className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm text-zinc-100 drop-shadow-sm">{f.text}</span>
+                <span className="text-base text-zinc-100 drop-shadow-sm">{f.text}</span>
               </div>
             ))}
           </div>
 
           {/* Footer */}
-          <p className="text-xs text-zinc-500">
+          <p className="text-sm text-zinc-500">
             &copy; 2026 DevPulse. Built for developers, by developers.
           </p>
         </div>
