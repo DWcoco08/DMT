@@ -1,0 +1,9 @@
+{
+  "name": "@codecraft/backend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "db:migrate": "echo 'Run SQL files in supabase/migrations/ via Supabase Dashboard'",
+    "db:types": "echo 'Generate types: npx supabase gen types typescript --project-id <id>'"
+  }
+}
