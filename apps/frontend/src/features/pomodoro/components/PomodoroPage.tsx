@@ -68,20 +68,52 @@ export function PomodoroPage() {
 
         {/* Inner — flex to fill */}
         <div className="relative flex h-full flex-col rounded-xl bg-[#08060a]/80 backdrop-blur-sm px-6 py-5">
-          {/* Status bar */}
-          <div className="flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2">
-              <div className={cn('h-2 w-2 rounded-full', pomo.isRunning ? 'bg-red-500 animate-pulse' : 'bg-zinc-700')} />
-              <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500">
-                {pomo.isRunning ? 'ACTIVE' : 'STANDBY'}
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-[11px] font-mono text-zinc-600">
-                CYCLE {Math.floor(pomo.completedPomodoros / 4) + 1} · ROUND {(pomo.completedPomodoros % 4) + 1}
-              </span>
-              <span className="text-[11px] font-mono text-zinc-700">SYS.POMO</span>
-            </div>
+          {/* 4 Corner info panels */}
+          {/* Top-left: Status */}
+          <div className="absolute top-4 left-5 flex items-center gap-2">
+            <div className={cn('h-2 w-2 rounded-full', pomo.isRunning ? 'bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.6)]' : 'bg-zinc-700')} />
+            <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500">
+              {pomo.isRunning ? 'ACTIVE' : 'STANDBY'}
+            </span>
+          </div>
+
+          {/* Top-right: Cycle */}
+          <div className="absolute top-4 right-5 text-right">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500">
+              CYCLE {Math.floor(pomo.completedPomodoros / 4) + 1} · ROUND {(pomo.completedPomodoros % 4) + 1}
+            </span>
+          </div>
+
+          {/* Bottom-left: Sessions */}
+          <div className="absolute bottom-4 left-5 flex items-center gap-2">
+            {[1, 2, 3, 4].map((i) => (
+              <motion.div
+                key={i}
+                className={cn(
+                  'h-3 w-3 transition-colors',
+                  i <= pomo.completedPomodoros % 4
+                    ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'
+                    : 'bg-zinc-800 border border-zinc-700'
+                )}
+                style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
+              />
+            ))}
+            <span className="text-[11px] font-mono text-zinc-500">{pomo.completedPomodoros} SESSIONS</span>
+          </div>
+
+          {/* Bottom-right: Target project */}
+          <div className="absolute bottom-4 right-5 flex items-center gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-600">Target:</span>
+            <select
+              value={pomo.projectId ?? ''}
+              onChange={(e) => pomo.setProjectId(e.target.value || null)}
+              className="rounded border border-zinc-800 bg-zinc-900/50 px-2 py-1 text-[11px] font-mono text-zinc-400 focus:border-red-800 focus:outline-none"
+            >
+              <option value="">NONE</option>
+              {projects?.map((p) => (
+                <option key={p.id} value={p.id}>{p.name}</option>
+              ))}
+            </select>
           </div>
 
           {/* Center content — grows to fill, vertically centered */}
@@ -197,38 +229,6 @@ export function PomodoroPage() {
             </div>
           </div>
 
-          {/* Bottom bar — pinned */}
-          <div className="flex items-center justify-between border-t border-zinc-800/50 pt-4 shrink-0">
-            <div className="flex items-center gap-3">
-              {[1, 2, 3, 4].map((i) => (
-                <motion.div
-                  key={i}
-                  className={cn(
-                    'h-3 w-3 transition-colors',
-                    i <= pomo.completedPomodoros % 4
-                      ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]'
-                      : 'bg-zinc-800 border border-zinc-700'
-                  )}
-                  style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
-                />
-              ))}
-              <span className="text-xs font-mono text-zinc-500">{pomo.completedPomodoros} SESSIONS</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-600">Target:</span>
-              <select
-                value={pomo.projectId ?? ''}
-                onChange={(e) => pomo.setProjectId(e.target.value || null)}
-                className="rounded border border-zinc-800 bg-zinc-900/50 px-2 py-1 text-xs font-mono text-zinc-300 focus:border-red-800 focus:outline-none"
-              >
-                <option value="">NONE</option>
-                {projects?.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
-                ))}
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     </div>
