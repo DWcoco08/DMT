@@ -172,9 +172,9 @@ function TimeLogTab() {
           ))}
         </select>
         <div className="flex items-center gap-2">
-          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground" />
+          <input type="date" lang="en" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground" />
           <span className="text-sm text-muted-foreground">to</span>
-          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground" />
+          <input type="date" lang="en" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground" />
         </div>
       </div>
 
