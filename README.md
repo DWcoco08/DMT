@@ -135,6 +135,59 @@ Open [http://localhost:5173](http://localhost:5173) — create an account and st
 
 ---
 
+## Usage Guide
+
+### First steps
+
+1. **Sign up** — Create an account with email and password
+2. **Create a project** — Go to **Projects** → **New Project**, pick a name and color
+3. **Add tasks** — Go to **Tasks**, type a task title, assign to a project, press Enter
+4. **Start tracking time** — On the **Dashboard**, select a project in the Timer widget and click Start
+5. **View progress** — Check **Reports** for charts and stats
+
+### Pomodoro workflow
+
+1. Go to **Pomodoro** from the sidebar
+2. Select a target project (bottom-right)
+3. Click **Engage** to start a 25-minute focus session
+4. When the timer ends, you get a browser notification and it auto-switches to break
+5. After 4 focus sessions, you get a 15-minute long break
+
+### Connect GitHub
+
+1. Go to [github.com/settings/tokens](https://github.com/settings/tokens) → **Generate new token (classic)**
+2. No scopes needed for public repos. For private repos, enable `repo` scope
+3. Copy the token (starts with `ghp_`)
+4. In DevPulse, go to **Settings** → **GitHub Integration**
+5. Paste the token and click **Connect GitHub**
+6. Your commits chart and recent pushes will appear on the Dashboard
+
+### Export your data
+
+1. Go to **Data** from the sidebar
+2. Choose what to export:
+   - **Tasks** → CSV with title, project, status, date
+   - **Time Sessions** → CSV with project, start/end times, duration
+   - **Full Backup** → JSON with all your data
+3. Files download instantly to your computer
+
+### Customize the Dashboard
+
+1. Click **Customize** on the Dashboard page
+2. Drag widgets to reorder them
+3. Click **X** on a widget to remove it
+4. Click **Add** to bring back hidden widgets
+5. Click **Done** — your layout is saved automatically
+
+### Notes
+
+1. Go to **Notes** from the sidebar
+2. Click **New Note** to create one
+3. Click a note in the list to open it in the editor
+4. Just type — notes auto-save as you write
+
+---
+
 ## Keyboard Shortcuts
 
 | Shortcut | Action |
