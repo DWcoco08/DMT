@@ -58,39 +58,46 @@ export function AuthLayout() {
         </p>
       </div>
 
-      {/* Right panel — always white */}
-      <div
-        className="flex w-full flex-col items-center justify-center bg-white p-6 lg:w-1/2"
-        style={{ colorScheme: 'light' }}
-      >
-        <style>{`
-          .auth-form-panel, .auth-form-panel * {
-            --color-background: hsl(0 0% 100%);
-            --color-foreground: hsl(240 10% 3.9%);
-            --color-card: hsl(0 0% 100%);
-            --color-card-foreground: hsl(240 10% 3.9%);
-            --color-primary: hsl(239 84% 67%);
-            --color-primary-foreground: hsl(0 0% 98%);
-            --color-muted: hsl(240 4.8% 95.9%);
-            --color-muted-foreground: hsl(240 3.8% 46.1%);
-            --color-border: hsl(240 5.9% 90%);
-            --color-input: hsl(240 5.9% 90%);
-            --color-ring: hsl(239 84% 67%);
-            --color-destructive: hsl(0 84.2% 60.2%);
-            --color-accent: hsl(240 4.8% 95.9%);
-            --color-accent-foreground: hsl(240 5.9% 10%);
-          }
-        `}</style>
+      {/* Right panel — dark gradient consistent with left */}
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden p-6 lg:w-1/2">
+        {/* Gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#1a0a0a] to-[#0d0508]" />
+
+        {/* Subtle red glow accents */}
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-red-900/20 blur-[120px]" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-red-800/15 blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-red-950/10 blur-[100px]" />
 
         {/* Mobile logo */}
-        <div className="mb-8 flex items-center gap-2 lg:hidden">
+        <div className="relative z-10 mb-8 flex items-center gap-2 lg:hidden">
           <img src="/logo-icon.png" alt="CodeCraft" className="h-9 w-9 object-contain" />
-          <span className="text-xl font-bold text-zinc-900">CodeCraft</span>
+          <span className="text-xl font-bold text-white">CodeCraft</span>
         </div>
 
-        <div className="auth-form-panel w-full max-w-sm">
+        {/* Glassmorphism form card */}
+        <div className="auth-form-panel relative z-10 w-full max-w-sm rounded-2xl border border-white/10 bg-white/[0.05] p-8 shadow-2xl backdrop-blur-xl">
           <Outlet />
         </div>
+
+        {/* CSS variable overrides for dark form */}
+        <style>{`
+          .auth-form-panel, .auth-form-panel * {
+            --color-background: transparent;
+            --color-foreground: hsl(0 0% 95%);
+            --color-card: transparent;
+            --color-card-foreground: hsl(0 0% 95%);
+            --color-primary: hsl(0 72% 51%);
+            --color-primary-foreground: hsl(0 0% 100%);
+            --color-muted: hsl(0 0% 15%);
+            --color-muted-foreground: hsl(0 0% 60%);
+            --color-border: hsl(0 0% 20%);
+            --color-input: hsl(0 0% 15%);
+            --color-ring: hsl(0 72% 51%);
+            --color-destructive: hsl(0 84% 60%);
+            --color-accent: hsl(0 0% 15%);
+            --color-accent-foreground: hsl(0 0% 90%);
+          }
+        `}</style>
       </div>
 
       <Toaster />
