@@ -1,5 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { motion } from 'framer-motion'
 import { GripVertical, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useDashboardStore, type WidgetConfig } from '@/stores/dashboardStore'
@@ -20,12 +21,12 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
     transform,
     transition,
     isDragging,
+    isOver,
   } = useSortable({ id: widget.id, disabled: !isEditMode })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
   }
 
   const colSpanClass =
@@ -33,27 +34,37 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
     widget.colSpan === 2 ? 'lg:col-span-2' : ''
 
   return (
-    <div
+    <motion.div
       ref={setNodeRef}
       style={style}
+      layout={!isDragging}
       className={cn(
-        'rounded-2xl border bg-card p-4 shadow-sm transition-colors',
+        'relative rounded-2xl border bg-card p-4 shadow-sm',
         colSpanClass,
-        isEditMode ? 'border-dashed border-primary/40' : 'border-border',
-        isDragging && 'z-50'
+        isDragging && 'z-50 shadow-xl ring-2 ring-primary/30 opacity-90 scale-[1.02]',
+        isOver && !isDragging && 'ring-2 ring-primary/20',
+        isEditMode && !isDragging && 'border-dashed border-primary/40 hover:border-primary/60',
+        !isEditMode && 'border-border',
       )}
     >
+      {/* Edit mode overlay shimmer */}
+      {isEditMode && !isDragging && (
+        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/[0.03] to-transparent" />
+      )}
+
       {/* Header */}
-      <div className="mb-2 flex items-center justify-between">
+      <div className="relative mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {isEditMode && (
-            <button
+            <motion.button
               {...attributes}
               {...listeners}
-              className="cursor-grab touch-none rounded p-0.5 text-muted-foreground hover:text-foreground active:cursor-grabbing"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="cursor-grab touch-none rounded-md p-1 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary active:cursor-grabbing"
             >
               <GripVertical className="h-4 w-4" />
-            </button>
+            </motion.button>
           )}
           <div>
             <h3 className="text-sm font-semibold text-foreground">{widget.title}</h3>
@@ -61,17 +72,19 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
           </div>
         </div>
         {isEditMode && (
-          <button
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
             onClick={() => removeWidget(widget.id)}
-            className="rounded p-1 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+            className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
           >
             <X className="h-3.5 w-3.5" />
-          </button>
+          </motion.button>
         )}
       </div>
 
       {/* Content */}
-      {children}
-    </div>
+      <div className="relative">{children}</div>
+    </motion.div>
   )
 }

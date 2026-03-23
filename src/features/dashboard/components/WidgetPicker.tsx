@@ -1,7 +1,9 @@
-import { Plus } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Plus, LayoutGrid } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
@@ -23,29 +25,38 @@ export function WidgetPicker({ open, onClose }: WidgetPickerProps) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Widget</DialogTitle>
+          <DialogDescription>Choose a widget to add to your dashboard</DialogDescription>
         </DialogHeader>
 
         {hiddenWidgets.length === 0 ? (
-          <p className="py-6 text-center text-sm text-muted-foreground">
-            All widgets are on your dashboard
-          </p>
+          <div className="flex flex-col items-center gap-3 py-8 text-center">
+            <LayoutGrid className="h-10 w-10 text-muted-foreground/50" />
+            <p className="text-sm text-muted-foreground">
+              All widgets are on your dashboard
+            </p>
+          </div>
         ) : (
           <div className="grid grid-cols-2 gap-3">
-            {hiddenWidgets.map((widget) => (
-              <button
+            {hiddenWidgets.map((widget, i) => (
+              <motion.button
                 key={widget.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
                 onClick={() => {
                   addWidget(widget.id)
                   if (hiddenWidgets.length === 1) onClose()
                 }}
-                className="flex flex-col items-start gap-1 rounded-xl border border-border p-4 text-left transition-colors hover:bg-accent/50"
+                className="group flex flex-col items-start gap-2 rounded-xl border border-border p-4 text-left transition-all hover:border-primary/40 hover:bg-primary/5 hover:shadow-sm"
               >
                 <div className="flex w-full items-center justify-between">
                   <span className="text-sm font-medium text-foreground">{widget.title}</span>
-                  <Plus className="h-4 w-4 text-primary" />
+                  <div className="rounded-full bg-primary/10 p-1 text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                    <Plus className="h-3 w-3" />
+                  </div>
                 </div>
                 <span className="text-xs text-muted-foreground">{widget.description}</span>
-              </button>
+              </motion.button>
             ))}
           </div>
         )}

@@ -7,11 +7,17 @@ import {
   useSensors,
   PointerSensor,
   TouchSensor,
+  KeyboardSensor,
   type DragStartEvent,
   type DragEndEvent,
 } from '@dnd-kit/core'
-import { SortableContext, rectSortingStrategy } from '@dnd-kit/sortable'
-import { Pencil, Check, Plus, RotateCcw } from 'lucide-react'
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Check, Plus, RotateCcw, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useDashboardStore } from '@/stores/dashboardStore'
 import { widgetRegistry } from './widgetRegistry'
@@ -27,12 +33,14 @@ export function DashboardPage() {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 5 } })
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   )
 
   const visibleWidgets = widgets.filter((w) => w.visible)
   const activeWidget = activeId ? widgets.find((w) => w.id === activeId) : null
+  const ActiveComponent = activeWidget ? widgetRegistry[activeWidget.type] : null
 
   function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id as string)
@@ -55,28 +63,35 @@ export function DashboardPage() {
           <p className="text-sm text-muted-foreground">Track your productivity and stay focused</p>
         </div>
         <div className="flex items-center gap-2">
-          {isEditMode && (
-            <>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setShowPicker(true)}
-                className="gap-1.5"
+          <AnimatePresence>
+            {isEditMode && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="flex items-center gap-2"
               >
-                <Plus className="h-3.5 w-3.5" />
-                Add
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={resetToDefault}
-                className="gap-1.5"
-              >
-                <RotateCcw className="h-3.5 w-3.5" />
-                Reset
-              </Button>
-            </>
-          )}
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setShowPicker(true)}
+                  className="gap-1.5"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  Add
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={resetToDefault}
+                  className="gap-1.5"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  Reset
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <Button
             size="sm"
             variant={isEditMode ? 'default' : 'outline'}
@@ -90,8 +105,8 @@ export function DashboardPage() {
               </>
             ) : (
               <>
-                <Pencil className="h-3.5 w-3.5" />
-                Edit
+                <Sparkles className="h-3.5 w-3.5" />
+                Customize
               </>
             )}
           </Button>
@@ -125,11 +140,19 @@ export function DashboardPage() {
           </div>
         </SortableContext>
 
-        <DragOverlay>
-          {activeWidget && (
-            <div className="rounded-2xl border border-primary/30 bg-card p-4 shadow-lg opacity-90">
-              <h3 className="text-sm font-semibold text-foreground">{activeWidget.title}</h3>
-              <p className="text-[11px] text-muted-foreground">{activeWidget.description}</p>
+        <DragOverlay dropAnimation={{
+          duration: 200,
+          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        }}>
+          {activeWidget && ActiveComponent && (
+            <div className="rounded-2xl border-2 border-primary/40 bg-card p-4 shadow-2xl opacity-95 rotate-[1deg]">
+              <div className="mb-2">
+                <h3 className="text-sm font-semibold text-foreground">{activeWidget.title}</h3>
+                <p className="text-[11px] text-muted-foreground">{activeWidget.description}</p>
+              </div>
+              <div className="opacity-60 max-h-40 overflow-hidden">
+                <ActiveComponent />
+              </div>
             </div>
           )}
         </DragOverlay>
