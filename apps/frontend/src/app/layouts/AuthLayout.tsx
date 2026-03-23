@@ -30,8 +30,8 @@ export function AuthLayout() {
 
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            <img src="/logo-icon.png" alt="CodeCraft" className="h-10 w-10 object-contain" />
-            <span className="text-2xl font-bold text-white">CodeCraft</span>
+            <img src="/logo-icon.png" alt="DevPulse" className="h-10 w-10 object-contain" />
+            <span className="text-2xl font-bold text-white">DevPulse</span>
           </div>
         </div>
 
@@ -41,7 +41,7 @@ export function AuthLayout() {
               Your dev workflow.<br />One platform.<br />Zero friction.
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-zinc-300">
-              CodeCraft brings together time tracking, task management, focus timers, analytics, and notes — everything a developer needs to stay productive and ship faster.
+              DevPulse brings together time tracking, task management, focus timers, analytics, and notes — everything a developer needs to stay productive and ship faster.
             </p>
           </div>
 
@@ -58,7 +58,7 @@ export function AuthLayout() {
         </div>
 
         <p className="relative z-10 text-xs text-zinc-500">
-          &copy; 2026 CodeCraft. Built for developers, by developers.
+          &copy; 2026 DevPulse. Built for developers, by developers.
         </p>
       </div>
 
@@ -74,8 +74,8 @@ export function AuthLayout() {
 
         {/* Mobile logo */}
         <div className="relative z-10 mb-8 flex items-center gap-2 lg:hidden">
-          <img src="/logo-icon.png" alt="CodeCraft" className="h-9 w-9 object-contain" />
-          <span className="text-xl font-bold text-white">CodeCraft</span>
+          <img src="/logo-icon.png" alt="DevPulse" className="h-9 w-9 object-contain" />
+          <span className="text-xl font-bold text-white">DevPulse</span>
         </div>
 
         {/* Glassmorphism form card */}

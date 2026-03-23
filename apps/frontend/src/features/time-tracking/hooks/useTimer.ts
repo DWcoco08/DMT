@@ -34,7 +34,7 @@ export function useTimer() {
           if (t.level === 'info') toast.info(t.label)
           else if (t.level === 'warning') toast.warning(t.label)
           else toast.error(t.label)
-          send('CodeCraft Timer', t.label)
+          send('DevPulse Timer', t.label)
         }
       }
     }, 1000)

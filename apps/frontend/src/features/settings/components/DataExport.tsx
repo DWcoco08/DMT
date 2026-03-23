@@ -30,7 +30,7 @@ export function DataExport() {
           format(new Date(t.created_at), 'yyyy-MM-dd HH:mm'),
         ])
       )
-      downloadFile(csv, `codecraft-tasks-${today()}.csv`)
+      downloadFile(csv, `devpulse-tasks-${today()}.csv`)
       toast.success(`Exported ${tasks.length} tasks`)
     } catch {
       toast.error('Failed to export tasks')
@@ -55,7 +55,7 @@ export function DataExport() {
           formatDuration(s.duration),
         ])
       )
-      downloadFile(csv, `codecraft-sessions-${today()}.csv`)
+      downloadFile(csv, `devpulse-sessions-${today()}.csv`)
       toast.success(`Exported ${sessions.length} sessions`)
     } catch {
       toast.error('Failed to export sessions')
@@ -72,7 +72,7 @@ export function DataExport() {
         timeSessionService.getRecentSessions(1000),
         projectService.getProjects(),
       ])
-      downloadJSON({ projects, tasks, sessions, exportedAt: new Date().toISOString() }, `codecraft-backup-${today()}.json`)
+      downloadJSON({ projects, tasks, sessions, exportedAt: new Date().toISOString() }, `devpulse-backup-${today()}.json`)
       toast.success('Full backup exported')
     } catch {
       toast.error('Failed to export data')

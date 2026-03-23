@@ -39,8 +39,8 @@ export function DashboardLayout() {
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex h-14 items-center gap-2.5 border-b border-red-900/20 px-5">
-        <img src="/logo-icon.png" alt="CodeCraft" className="h-8 w-8 object-contain" />
-        <span className="text-xl font-semibold text-white">CodeCraft</span>
+        <img src="/logo-icon.png" alt="DevPulse" className="h-8 w-8 object-contain" />
+        <span className="text-xl font-semibold text-white">DevPulse</span>
       </div>
 
       {/* Navigation */}
@@ -125,7 +125,7 @@ export function DashboardLayout() {
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
-          <span className="text-lg font-semibold">CodeCraft</span>
+          <span className="text-lg font-semibold">DevPulse</span>
         </header>
 
         <main className="flex-1">
