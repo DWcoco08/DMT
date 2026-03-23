@@ -9,7 +9,6 @@ import {
   Timer,
   CheckSquare,
   FolderOpen,
-  Clock,
   BarChart3,
   StickyNote,
   Database,
@@ -67,10 +66,6 @@ export function CommandPalette() {
           <CommandItem onSelect={() => runAndClose(() => navigate('/projects'))}>
             <FolderOpen className="mr-2 h-4 w-4" />
             Projects
-          </CommandItem>
-          <CommandItem onSelect={() => runAndClose(() => navigate('/time-log'))}>
-            <Clock className="mr-2 h-4 w-4" />
-            Time Log
           </CommandItem>
           <CommandItem onSelect={() => runAndClose(() => navigate('/pomodoro'))}>
             <Cpu className="mr-2 h-4 w-4" />
