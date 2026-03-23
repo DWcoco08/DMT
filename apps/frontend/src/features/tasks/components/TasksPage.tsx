@@ -34,7 +34,7 @@ const filterOptions: { key: Filter; label: string; icon: React.ReactNode }[] = [
 ]
 
 export function TasksPage() {
-  const [tab, setTab] = useState<Tab>('tasks')
+  const [tab, setTab] = useState<Tab>('projects')
 
   return (
     <div className="space-y-6">
@@ -46,8 +46,8 @@ export function TasksPage() {
       {/* Tabs */}
       <div className="flex gap-1 rounded-lg bg-muted p-1 w-fit">
         {([
-          { key: 'tasks' as Tab, label: 'Tasks' },
           { key: 'projects' as Tab, label: 'Projects' },
+          { key: 'tasks' as Tab, label: 'Tasks' },
         ]).map((t) => (
           <button
             key={t.key}
@@ -64,7 +64,7 @@ export function TasksPage() {
         ))}
       </div>
 
-      {tab === 'tasks' ? <TasksTab /> : <ProjectsTab />}
+      {tab === 'projects' ? <ProjectsTab /> : <TasksTab />}
     </div>
   )
 }
