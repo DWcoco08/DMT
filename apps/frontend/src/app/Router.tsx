@@ -27,6 +27,9 @@ const TasksPage = lazy(() =>
 const ProjectsPage = lazy(() =>
   import('@/features/projects/components/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
 )
+const DataPage = lazy(() =>
+  import('@/features/settings/components/DataPage').then((m) => ({ default: m.DataPage }))
+)
 
 function PageFallback() {
   return (
@@ -109,6 +112,14 @@ export function AppRouter() {
               element={
                 <Suspense fallback={<PageFallback />}>
                   <AnimatedPage><TasksPage /></AnimatedPage>
+                </Suspense>
+              }
+            />
+            <Route
+              path="/data"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <AnimatedPage><DataPage /></AnimatedPage>
                 </Suspense>
               }
             />
