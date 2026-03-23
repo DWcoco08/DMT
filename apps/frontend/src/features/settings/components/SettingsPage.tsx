@@ -13,9 +13,9 @@ export function SettingsPage() {
       </div>
 
       {/* Sections grid */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 items-start">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {/* Profile */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm flex flex-col">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
               <User className="h-4 w-4 text-primary" />
