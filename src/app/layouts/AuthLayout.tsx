@@ -33,11 +33,11 @@ export function AuthLayout() {
 
         <div className="relative z-10 space-y-8">
           <div>
-            <h2 className="text-3xl font-bold leading-tight text-white">
+            <h2 className="text-5xl font-bold leading-[1.15] tracking-tight text-white">
               Build better.<br />Ship faster.<br />Track everything.
             </h2>
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-zinc-300">
-              The developer productivity tool that helps you understand where your time goes and how to make the most of it.
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-zinc-300">
+              The all-in-one developer productivity platform. Track your time, manage tasks, visualize your coding habits, and ship projects faster than ever before.
             </p>
           </div>
 
@@ -47,7 +47,7 @@ export function AuthLayout() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
                   <f.icon className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm text-zinc-200">{f.text}</span>
+                <span className="text-[15px] text-zinc-200">{f.text}</span>
               </div>
             ))}
           </div>
