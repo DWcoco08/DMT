@@ -37,7 +37,7 @@ export function NotesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-foreground">Notes</h1>
           <p className="text-sm text-muted-foreground">Developer journal and scratch pad</p>

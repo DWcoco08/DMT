@@ -49,14 +49,20 @@ export function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Projects</h1>
-        <p className="text-sm text-muted-foreground">Organize your work</p>
+      {/* Header + Action */}
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Projects</h1>
+          <p className="text-sm text-muted-foreground">Organize your work</p>
+        </div>
+        <Button size="sm" onClick={() => setShowForm(true)} className="gap-1.5">
+          <Plus className="h-3.5 w-3.5" />
+          New Project
+        </Button>
       </div>
 
-      {/* Stats + Action */}
-      <div className="grid grid-cols-4 gap-3">
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-3">
         <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
           <p className="text-2xl font-bold text-foreground">{projects?.length ?? 0}</p>
           <p className="text-xs text-muted-foreground mt-1">Projects</p>
@@ -69,13 +75,6 @@ export function ProjectsPage() {
           <p className="text-2xl font-bold text-foreground">{formatHours(totalHours)}</p>
           <p className="text-xs text-muted-foreground mt-1">Total Hours</p>
         </div>
-        <button
-          onClick={() => setShowForm(true)}
-          className="flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border bg-card p-4 shadow-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-        >
-          <Plus className="h-5 w-5" />
-          <span className="text-xs font-medium">New Project</span>
-        </button>
       </div>
 
       <div className="flex gap-4">
