@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import { Toaster } from '@/components/ui/sonner'
-import { Timer, BarChart3, CheckSquare, FolderOpen, Cpu, StickyNote, Github, Sparkles } from 'lucide-react'
+import { Briefcase, Timer, BarChart3, Cpu, StickyNote, Github, Sparkles } from 'lucide-react'
 
 const features = [
-  { icon: CheckSquare, text: 'Tasks & Filters' },
+  { icon: Briefcase, text: 'Workspace' },
   { icon: Timer, text: 'Time Tracking' },
-  { icon: FolderOpen, text: 'Projects' },
   { icon: Cpu, text: 'Pomodoro Timer' },
   { icon: BarChart3, text: 'Reports' },
   { icon: StickyNote, text: 'Dev Notes' },

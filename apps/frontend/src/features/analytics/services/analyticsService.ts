@@ -79,8 +79,8 @@ export const analyticsService = {
   },
 
   async getProductivityStats(): Promise<{
-    hoursToday: number
-    hoursThisWeek: number
+    secondsToday: number
+    secondsThisWeek: number
     tasksCompletedToday: number
   }> {
     const todayStart = startOfDay(new Date()).toISOString()
@@ -112,16 +112,16 @@ export const analyticsService = {
       rows.reduce((sum, r) => sum + (r.duration ?? 0), 0)
 
     return {
-      hoursToday: Math.round((sumDuration(sessionsToday.data) / 3600) * 10) / 10,
-      hoursThisWeek: Math.round((sumDuration(sessionsWeek.data) / 3600) * 10) / 10,
+      secondsToday: sumDuration(sessionsToday.data),
+      secondsThisWeek: sumDuration(sessionsWeek.data),
       tasksCompletedToday: tasksToday.data.length,
     }
   },
 
   async getAllTimeStats(): Promise<{
-    totalHours: number
+    totalSeconds: number
     totalSessions: number
-    avgHoursPerDay: number
+    avgSecondsPerDay: number
     longestSession: number
   }> {
     const { data, error } = await supabase
@@ -133,13 +133,12 @@ export const analyticsService = {
 
     const totalSeconds = data.reduce((sum, r) => sum + (r.duration ?? 0), 0)
     const longestSession = data.reduce((max, r) => Math.max(max, r.duration ?? 0), 0)
-
     const days = new Set(data.map((r) => format(new Date(r.start_time), 'yyyy-MM-dd'))).size
 
     return {
-      totalHours: Math.round((totalSeconds / 3600) * 10) / 10,
+      totalSeconds,
       totalSessions: data.length,
-      avgHoursPerDay: days > 0 ? Math.round((totalSeconds / 3600 / days) * 10) / 10 : 0,
+      avgSecondsPerDay: days > 0 ? Math.round(totalSeconds / days) : 0,
       longestSession,
     }
   },

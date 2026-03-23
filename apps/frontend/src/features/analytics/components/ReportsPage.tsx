@@ -72,9 +72,9 @@ function OverviewTab() {
     .slice(0, 8) ?? []
 
   const statCards = [
-    { label: 'Total Hours', value: statsLoading ? '—' : `${stats?.totalHours ?? 0}h`, icon: Clock, color: 'text-blue-500' },
+    { label: 'Total Time', value: statsLoading ? '—' : formatHours(stats?.totalSeconds ?? 0), icon: Clock, color: 'text-blue-500' },
     { label: 'Total Sessions', value: statsLoading ? '—' : `${stats?.totalSessions ?? 0}`, icon: CalendarDays, color: 'text-green-500' },
-    { label: 'Avg Hours/Day', value: statsLoading ? '—' : `${stats?.avgHoursPerDay ?? 0}h`, icon: TrendingUp, color: 'text-purple-500' },
+    { label: 'Avg / Day', value: statsLoading ? '—' : formatHours(stats?.avgSecondsPerDay ?? 0), icon: TrendingUp, color: 'text-purple-500' },
     { label: 'Longest Session', value: statsLoading ? '—' : formatDuration(stats?.longestSession ?? 0), icon: Zap, color: 'text-orange-500' },
   ]
 

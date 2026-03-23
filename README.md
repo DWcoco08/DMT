@@ -10,23 +10,22 @@ DevPulse is a developer productivity platform that brings together time tracking
 
 ### Core
 - **Dashboard** — Customizable bento grid with drag-and-drop widgets. Add, remove, and reorder to fit your workflow.
-- **Tasks** — Full task management with search, project filter, sort (newest/oldest/name), status tabs (All/Pending/Done), inline editing (double-click to rename), and project assignment.
-- **Projects** — Color-coded project organization with detail view showing tasks, completion rate, and tracked hours.
-- **Time Tracking** — Start/stop timer per project. Sessions persist across page refresh. Full session history with date range and project filters.
+- **Workspace** — Tasks and Projects in one place with tabbed view. Tasks have 3 statuses (Pending → In Progress → Completed), descriptions, search, project filter, sort. Projects with inline rename, delete, color coding.
+- **Time Tracking** — Start/stop timer per project. Sessions persist across page refresh.
 
 ### Focus & Analytics
 - **Pomodoro Timer** — Cyberpunk-styled focus timer with 25/5/15 min cycles, auto-switch between work and break, browser notifications, session counter.
-- **Reports** — All-time stats (total hours, sessions, avg hours/day, longest session), daily/weekly productivity charts, hours-by-project breakdown.
+- **Reports** — Overview tab (stats, productivity charts, hours by project) + Time Log tab (full session table with date/project filters). All durations shown in hours and minutes.
 - **Timer Notifications** — Automatic alerts at 1h, 2h, and 4h thresholds with visual timer color changes.
 
 ### Productivity
-- **Notes** — Developer journal with two-column layout (note list + editor), auto-save on typing, create/delete.
+- **Notes** — Developer journal with two-column layout (note list + editor), auto-save on typing, mobile-friendly with back navigation.
 - **Data Export** — Export tasks and time sessions as CSV, or full backup as JSON. Danger zone for account data reset.
 - **GitHub Integration** — Connect via Personal Access Token, view commits per day chart and recent push history on dashboard.
 
 ### Platform
 - **Authentication** — Email/password signup with password strength meter, forgot password flow, session persistence.
-- **Theme** — Light, Dark, and System modes with red-black accent palette.
+- **Themes** — 6 themes: Light, Dark, System, Ocean, Forest, Purple. Sidebar follows theme.
 - **Command Palette** — `Ctrl+K` to navigate anywhere, switch theme, or trigger actions.
 - **Realtime Sync** — Supabase Realtime keeps data in sync across multiple tabs.
 - **Responsive** — Mobile sidebar with hamburger menu, adaptive layouts.

@@ -7,8 +7,7 @@ import {
   Moon,
   Monitor,
   Timer,
-  CheckSquare,
-  FolderOpen,
+  Briefcase,
   BarChart3,
   StickyNote,
   Database,
@@ -59,13 +58,9 @@ export function CommandPalette() {
             <LayoutDashboard className="mr-2 h-4 w-4" />
             Dashboard
           </CommandItem>
-          <CommandItem onSelect={() => runAndClose(() => navigate('/tasks'))}>
-            <CheckSquare className="mr-2 h-4 w-4" />
-            Tasks
-          </CommandItem>
-          <CommandItem onSelect={() => runAndClose(() => navigate('/projects'))}>
-            <FolderOpen className="mr-2 h-4 w-4" />
-            Projects
+          <CommandItem onSelect={() => runAndClose(() => navigate('/workspace'))}>
+            <Briefcase className="mr-2 h-4 w-4" />
+            Workspace
           </CommandItem>
           <CommandItem onSelect={() => runAndClose(() => navigate('/pomodoro'))}>
             <Cpu className="mr-2 h-4 w-4" />

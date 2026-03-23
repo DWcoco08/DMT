@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Clock, CheckCircle2, TrendingUp } from 'lucide-react'
+import { formatHours } from '@/lib/utils'
 import { useProductivityStats } from '@/features/analytics/hooks/useAnalytics'
 
 export function StatCards() {
@@ -7,13 +8,13 @@ export function StatCards() {
 
   const cards = [
     {
-      label: 'Hours Today',
-      value: isLoading ? '—' : `${stats?.hoursToday ?? 0}h`,
+      label: 'Today',
+      value: isLoading ? '—' : formatHours(stats?.secondsToday ?? 0),
       icon: <Clock className="h-4 w-4 text-blue-500" />,
     },
     {
       label: 'This Week',
-      value: isLoading ? '—' : `${stats?.hoursThisWeek ?? 0}h`,
+      value: isLoading ? '—' : formatHours(stats?.secondsThisWeek ?? 0),
       icon: <TrendingUp className="h-4 w-4 text-green-500" />,
     },
     {

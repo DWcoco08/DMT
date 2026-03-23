@@ -24,9 +24,6 @@ const ForgotPasswordForm = lazy(() =>
 const TasksPage = lazy(() =>
   import('@/features/tasks/components/TasksPage').then((m) => ({ default: m.TasksPage }))
 )
-const ProjectsPage = lazy(() =>
-  import('@/features/projects/components/ProjectsPage').then((m) => ({ default: m.ProjectsPage }))
-)
 const DataPage = lazy(() =>
   import('@/features/settings/components/DataPage').then((m) => ({ default: m.DataPage }))
 )
@@ -109,15 +106,7 @@ export function AppRouter() {
               }
             />
             <Route
-              path="/projects"
-              element={
-                <Suspense fallback={<PageFallback />}>
-                  <AnimatedPage><ProjectsPage /></AnimatedPage>
-                </Suspense>
-              }
-            />
-            <Route
-              path="/tasks"
+              path="/workspace"
               element={
                 <Suspense fallback={<PageFallback />}>
                   <AnimatedPage><TasksPage /></AnimatedPage>

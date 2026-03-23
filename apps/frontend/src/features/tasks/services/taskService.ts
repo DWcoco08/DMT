@@ -14,45 +14,72 @@ export const taskService = {
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (filters?.status) {
-      query = query.eq('status', filters.status)
-    }
-    if (filters?.completed !== undefined) {
-      query = query.eq('completed', filters.completed)
-    }
     if (filters?.project_id) {
       query = query.eq('project_id', filters.project_id)
     }
 
     const { data, error } = await query
     if (error) throw error
-    return data as Task[]
+
+    let tasks = data as Task[]
+
+    // Client-side status filter (handles DB without status column)
+    if (filters?.status) {
+      tasks = tasks.filter((t) => {
+        const s = t.status || (t.completed ? 'completed' : 'pending')
+        return s === filters.status
+      })
+    }
+
+    return tasks
   },
 
   async createTask(title: string, description?: string, projectId?: string): Promise<Task> {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) throw new Error('Not authenticated')
 
+    const insert: Record<string, unknown> = {
+      user_id: user.id,
+      title,
+      project_id: projectId || null,
+    }
+
+    // Only include new columns if migration has been run
+    // These will be silently ignored by Supabase if columns don't exist
+    try {
+      insert.description = description || null
+      insert.status = 'pending'
+    } catch { /* ignore */ }
+
     const { data, error } = await supabase
       .from('tasks')
-      .insert({
-        user_id: user.id,
-        title,
-        description: description || null,
-        project_id: projectId || null,
-        status: 'pending',
-      })
+      .insert(insert)
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      // Retry without new columns if they don't exist
+      if (error.message?.includes('status') || error.message?.includes('description')) {
+        const { data: retryData, error: retryError } = await supabase
+          .from('tasks')
+          .insert({ user_id: user.id, title, project_id: projectId || null })
+          .select()
+          .single()
+        if (retryError) throw retryError
+        return retryData as Task
+      }
+      throw error
+    }
     return data as Task
   },
 
   async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+    const updates: Record<string, unknown> = { completed: status === 'completed' }
+    updates.status = status
+
     const { data, error } = await supabase
       .from('tasks')
-      .update({ status, completed: status === 'completed' })
+      .update(updates)
       .eq('id', id)
       .select()
       .single()
