@@ -39,6 +39,9 @@ const ReportsPage = lazy(() =>
 const NotesPage = lazy(() =>
   import('@/features/notes/components/NotesPage').then((m) => ({ default: m.NotesPage }))
 )
+const PomodoroPage = lazy(() =>
+  import('@/features/pomodoro/components/PomodoroPage').then((m) => ({ default: m.PomodoroPage }))
+)
 
 function PageFallback() {
   return (
@@ -121,6 +124,14 @@ export function AppRouter() {
               element={
                 <Suspense fallback={<PageFallback />}>
                   <AnimatedPage><TasksPage /></AnimatedPage>
+                </Suspense>
+              }
+            />
+            <Route
+              path="/pomodoro"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <AnimatedPage><PomodoroPage /></AnimatedPage>
                 </Suspense>
               }
             />
