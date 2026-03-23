@@ -83,7 +83,7 @@ export function DashboardLayout() {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Desktop Sidebar */}
-      <aside className="hidden w-52 shrink-0 border-r border-border bg-sidebar-background md:block">
+      <aside className="hidden w-52 shrink-0 border-r border-border bg-sidebar-background md:block sticky top-0 h-screen overflow-y-auto">
         {sidebarContent}
       </aside>
 
