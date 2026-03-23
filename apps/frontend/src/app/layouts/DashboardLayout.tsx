@@ -21,9 +21,6 @@ const navItems = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
-// Sidebar: darker, more muted red-black (like the arcade shadows)
-const sidebarClasses = 'bg-gradient-to-b from-[#0c0507] via-[#110a0c] to-[#0a0608]'
-
 export function DashboardLayout() {
   const navigate = useNavigate()
   const { user } = useAuth()
@@ -38,9 +35,9 @@ export function DashboardLayout() {
   const sidebarContent = (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex h-14 items-center gap-2.5 border-b border-red-900/20 px-5">
+      <div className="flex h-14 items-center gap-2.5 border-b border-sidebar-border px-5">
         <img src="/logo-icon.png" alt="DevPulse" className="h-8 w-8 object-contain" />
-        <span className="text-xl font-semibold text-white">DevPulse</span>
+        <span className="text-xl font-semibold text-sidebar-foreground">DevPulse</span>
       </div>
 
       {/* Navigation */}
@@ -54,8 +51,8 @@ export function DashboardLayout() {
               cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors',
                 isActive
-                  ? 'bg-red-950/40 text-red-100'
-                  : 'text-zinc-400 hover:bg-red-950/20 hover:text-zinc-200'
+                  ? 'bg-sidebar-accent text-sidebar-accent-foreground'
+                  : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
               )
             }
           >
@@ -67,19 +64,19 @@ export function DashboardLayout() {
 
       {/* Command palette hint */}
       <div className="px-3 pb-2">
-        <p className="text-[11px] text-zinc-600 text-center">
-          <kbd className="rounded border border-red-900/20 bg-red-950/20 px-1 py-0.5 text-[11px] font-mono text-zinc-500">Ctrl+K</kbd> commands
+        <p className="text-[11px] text-sidebar-foreground/40 text-center">
+          <kbd className="rounded border border-sidebar-border bg-sidebar-accent/50 px-1 py-0.5 text-[11px] font-mono text-sidebar-foreground/50">Ctrl+K</kbd> commands
         </p>
       </div>
 
       {/* User info + Sign out */}
-      <div className="border-t border-red-900/20 p-3 space-y-1.5">
+      <div className="border-t border-sidebar-border p-3 space-y-1.5">
         {user && (
-          <p className="truncate px-3 text-xs text-zinc-500">{user.email}</p>
+          <p className="truncate px-3 text-xs text-sidebar-foreground/50">{user.email}</p>
         )}
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium text-zinc-400 transition-colors hover:bg-red-950/20 hover:text-zinc-200"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium text-sidebar-foreground/60 transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
         >
           <LogOut className="h-5 w-5" />
           Sign Out
@@ -91,7 +88,7 @@ export function DashboardLayout() {
   return (
     <div className="flex min-h-screen">
       {/* Desktop Sidebar */}
-      <aside className={cn('hidden w-52 shrink-0 border-r border-red-900/20 md:block sticky top-0 h-screen overflow-y-auto', sidebarClasses)}>
+      <aside className="hidden w-52 shrink-0 border-r border-sidebar-border bg-sidebar-background md:block sticky top-0 h-screen overflow-y-auto">
         {sidebarContent}
       </aside>
 
@@ -106,8 +103,7 @@ export function DashboardLayout() {
       {/* Mobile Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-52 border-r border-red-900/20 transition-transform md:hidden',
-          sidebarClasses,
+          'fixed inset-y-0 left-0 z-50 w-52 border-r border-sidebar-border bg-sidebar-background transition-transform md:hidden',
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
@@ -115,7 +111,7 @@ export function DashboardLayout() {
       </aside>
 
       {/* Main content */}
-      <div className="flex flex-1 flex-col overflow-auto bg-gradient-to-br from-background via-background to-red-950/[0.03] dark:to-red-950/10">
+      <div className="flex flex-1 flex-col overflow-auto bg-background">
         {/* Mobile header */}
         <header className="flex h-14 items-center gap-4 border-b border-border px-4 md:hidden">
           <Button
