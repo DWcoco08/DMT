@@ -1,31 +1,98 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Loader2 } from 'lucide-react'
 import { AuthLayout } from './layouts/AuthLayout'
 import { DashboardLayout } from './layouts/DashboardLayout'
 import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute'
-import { LoginForm } from '@/features/auth/components/LoginForm'
-import { SignupForm } from '@/features/auth/components/SignupForm'
-import { DashboardPage } from '@/features/dashboard/components/DashboardPage'
-import { SettingsPage } from '@/features/settings/components/SettingsPage'
+
+const LoginForm = lazy(() =>
+  import('@/features/auth/components/LoginForm').then((m) => ({ default: m.LoginForm }))
+)
+const SignupForm = lazy(() =>
+  import('@/features/auth/components/SignupForm').then((m) => ({ default: m.SignupForm }))
+)
+const DashboardPage = lazy(() =>
+  import('@/features/dashboard/components/DashboardPage').then((m) => ({ default: m.DashboardPage }))
+)
+const SettingsPage = lazy(() =>
+  import('@/features/settings/components/SettingsPage').then((m) => ({ default: m.SettingsPage }))
+)
+
+function PageFallback() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <Loader2 className="h-6 w-6 animate-spin text-primary" />
+    </div>
+  )
+}
+
+const pageTransition = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { duration: 0.2, ease: 'easeInOut' as const },
+}
+
+function AnimatedPage({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div {...pageTransition}>
+      {children}
+    </motion.div>
+  )
+}
 
 export function AppRouter() {
+  const location = useLocation()
+
   return (
-    <Routes>
-      {/* Auth routes */}
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignupForm />} />
-      </Route>
-
-      {/* Protected routes */}
-      <Route element={<ProtectedRoute />}>
-        <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Auth routes */}
+        <Route element={<AuthLayout />}>
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><LoginForm /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><SignupForm /></AnimatedPage>
+              </Suspense>
+            }
+          />
         </Route>
-      </Route>
 
-      {/* Redirect */}
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
-    </Routes>
+        {/* Protected routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<DashboardLayout />}>
+            <Route
+              path="/dashboard"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <AnimatedPage><DashboardPage /></AnimatedPage>
+                </Suspense>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <AnimatedPage><SettingsPage /></AnimatedPage>
+                </Suspense>
+              }
+            />
+          </Route>
+        </Route>
+
+        {/* Redirect */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </AnimatePresence>
   )
 }

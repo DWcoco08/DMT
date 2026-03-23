@@ -7,6 +7,7 @@ import { useAuth } from '@/features/auth/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/sonner'
 import { CommandPalette } from '@/components/shared/CommandPalette'
+import { useRealtimeSync } from '@/hooks/useRealtimeSync'
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -17,6 +18,7 @@ export function DashboardLayout() {
   const navigate = useNavigate()
   const { user } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  useRealtimeSync()
 
   async function handleSignOut() {
     await authService.signOut()

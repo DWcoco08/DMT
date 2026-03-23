@@ -21,44 +21,41 @@ export function DashboardPage() {
 
       {/* Bento grid */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {/* Timer */}
-        <BentoCard title="Timer" description="Track time on your projects">
+        <BentoCard title="Timer" description="Track time on your projects" index={0}>
           <TimerWidget />
         </BentoCard>
 
-        {/* Tasks - spans 2 rows */}
         <BentoCard
           title="Tasks"
           description="Your to-do list"
           className="md:row-span-2"
+          index={1}
         >
           <TaskList />
         </BentoCard>
 
-        {/* Projects Overview */}
-        <BentoCard title="Projects" description="Time per project">
+        <BentoCard title="Projects" description="Time per project" index={2}>
           <ProjectsOverview />
         </BentoCard>
 
-        {/* Analytics - spans 2 columns */}
         <BentoCard
           title="Productivity"
           description="Your coding hours"
           className="lg:col-span-2"
+          index={3}
         >
           <ProductivityChart />
         </BentoCard>
 
-        {/* Activity Feed */}
-        <BentoCard title="Activity" description="Recent actions">
+        <BentoCard title="Activity" description="Recent actions" index={4}>
           <ActivityFeed />
         </BentoCard>
 
-        {/* Recent Sessions */}
         <BentoCard
           title="Recent Sessions"
           description="Your latest time entries"
           className="lg:col-span-2"
+          index={5}
         >
           <SessionHistory />
         </BentoCard>
