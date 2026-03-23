@@ -12,9 +12,9 @@ export function SettingsPage() {
         <p className="text-sm text-muted-foreground">Manage your account and preferences</p>
       </div>
 
-      {/* Row 1: Profile + Appearance */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
-        {/* Profile — narrower */}
+      {/* Row 1: Profile + Appearance — items-start so no stretching */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-5 lg:items-start">
+        {/* Profile */}
         <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
@@ -28,7 +28,7 @@ export function SettingsPage() {
           <ProfileForm />
         </div>
 
-        {/* Appearance — wider for 3x2 grid */}
+        {/* Appearance */}
         <div className="lg:col-span-3 rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-500/10">
@@ -43,7 +43,7 @@ export function SettingsPage() {
         </div>
       </div>
 
-      {/* Row 2: GitHub — full width */}
+      {/* Row 2: GitHub */}
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <div className="flex items-center gap-3 mb-5">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-500/10">

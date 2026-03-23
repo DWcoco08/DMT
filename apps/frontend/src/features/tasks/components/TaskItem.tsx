@@ -16,9 +16,10 @@ const statusConfig: Record<TaskStatus, { label: string; color: string; bg: strin
 
 interface TaskItemProps {
   task: Task
+  onStatusChange?: (status: TaskStatus) => void
 }
 
-export function TaskItem({ task }: TaskItemProps) {
+export function TaskItem({ task, onStatusChange }: TaskItemProps) {
   const updateStatus = useUpdateTaskStatus()
   const deleteTask = useDeleteTask()
   const updateTask = useUpdateTask()
@@ -44,6 +45,7 @@ export function TaskItem({ task }: TaskItemProps) {
   function selectStatus(newStatus: TaskStatus) {
     if (newStatus !== status) {
       updateStatus.mutate({ id: task.id, status: newStatus })
+      onStatusChange?.(newStatus)
     }
     setShowStatusPicker(false)
   }

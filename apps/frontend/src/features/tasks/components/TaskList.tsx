@@ -84,7 +84,7 @@ export function TaskList() {
         <div className="space-y-1.5">
           <AnimatePresence mode="popLayout">
             {filtered.map((task) => (
-              <TaskItem key={task.id} task={task} />
+              <TaskItem key={task.id} task={task} onStatusChange={(s) => setFilter(s as Filter)} />
             ))}
           </AnimatePresence>
         </div>

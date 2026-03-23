@@ -170,7 +170,7 @@ function TasksTab() {
         ) : (
           <div className="space-y-2">
             <AnimatePresence mode="popLayout">
-              {sorted.map((task) => (<TaskItem key={task.id} task={task} />))}
+              {sorted.map((task) => (<TaskItem key={task.id} task={task} onStatusChange={(s) => setFilter(s as Filter)} />))}
             </AnimatePresence>
           </div>
         )}
