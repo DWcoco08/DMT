@@ -24,7 +24,7 @@ export function ProductivityChart() {
     : weeklyData?.map((d) => ({ name: d.week, hours: d.hours }))
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {/* View toggle */}
       <div className="flex gap-1 rounded-lg bg-muted p-1 w-fit">
         {(['daily', 'weekly'] as const).map((v) => (
@@ -47,7 +47,7 @@ export function ProductivityChart() {
       {isLoading ? (
         <div className="h-48 animate-pulse rounded-lg bg-muted" />
       ) : (
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={180}>
           <BarChart data={chartData ?? []}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
             <XAxis

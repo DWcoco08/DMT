@@ -89,7 +89,7 @@ export function NotesPage() {
                   variant="ghost"
                   size="icon-xs"
                   onClick={(e) => { e.stopPropagation(); handleDelete(note.id) }}
-                  className="opacity-0 group-hover:opacity-100 shrink-0 mt-0.5"
+                  className="shrink-0 mt-0.5 sm:opacity-0 sm:group-hover:opacity-100"
                 >
                   <Trash2 className="h-3 w-3 text-muted-foreground" />
                 </Button>

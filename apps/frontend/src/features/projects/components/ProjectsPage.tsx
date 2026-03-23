@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, FolderOpen, Clock, CheckCircle2, ChevronRight, X } from 'lucide-react'
+import { Plus, FolderOpen, Clock, CheckCircle2, ChevronRight, X, Pencil, Trash2 } from 'lucide-react'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { cn, formatHours } from '@/lib/utils'
-import { useProjects, useDeleteProject } from '../hooks/useProjects'
+import { useProjects, useDeleteProject, useUpdateProject } from '../hooks/useProjects'
 import { useTasks } from '@/features/tasks/hooks/useTasks'
 import { useSessionsByProject } from '@/features/time-tracking/hooks/useTimeSessions'
 import { ProjectForm } from './ProjectForm'
@@ -23,10 +23,13 @@ export function ProjectsPage() {
   const { data: sessionsByProject } = useSessionsByProject()
   const { data: allTasks } = useTasks()
   const deleteProject = useDeleteProject()
+  const updateProject = useUpdateProject()
 
   const [showForm, setShowForm] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editName, setEditName] = useState('')
 
   const durationMap = new Map(sessionsByProject?.map((s) => [s.project_id, s.total_duration]) ?? [])
   const totalHours = Array.from(durationMap.values()).reduce((a, b) => a + b, 0)
@@ -94,26 +97,69 @@ export function ProjectsPage() {
               const hours = durationMap.get(project.id) ?? 0
               const completed = tasks.filter((t) => t.completed).length
               const isSelected = selectedProject?.id === project.id
+              const isEditingThis = editingId === project.id
 
               return (
-                <motion.button
+                <motion.div
                   key={project.id}
                   layout
-                  onClick={() => setSelectedProject(isSelected ? null : project)}
                   className={cn(
-                    'flex w-full items-center gap-4 rounded-xl border p-4 text-left transition-colors',
+                    'group flex w-full items-center gap-4 rounded-xl border p-4 transition-colors',
                     isSelected ? 'border-primary/40 bg-primary/5' : 'border-border bg-card hover:bg-accent/30'
                   )}
                 >
                   <div className="h-4 w-4 shrink-0 rounded-full" style={{ backgroundColor: project.color }} />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-foreground">{project.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {tasks.length} tasks · {completed} done · {formatHours(hours)}
-                    </p>
-                  </div>
-                  <ChevronRight className={cn('h-4 w-4 text-muted-foreground transition-transform', isSelected && 'rotate-90')} />
-                </motion.button>
+
+                  {isEditingThis ? (
+                    <div className="flex flex-1 gap-2">
+                      <input
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && editName.trim()) {
+                            updateProject.mutate({ id: project.id, name: editName.trim() })
+                            setEditingId(null)
+                          }
+                          if (e.key === 'Escape') setEditingId(null)
+                        }}
+                        autoFocus
+                        className="flex-1 bg-transparent text-sm text-foreground outline-none border-b border-primary/50"
+                      />
+                      <Button size="sm" variant="ghost" onClick={() => setEditingId(null)}>Cancel</Button>
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => setSelectedProject(isSelected ? null : project)}
+                        className="flex-1 min-w-0 text-left"
+                      >
+                        <p className="font-medium text-foreground">{project.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {tasks.length} tasks · {completed} done · {formatHours(hours)}
+                        </p>
+                      </button>
+
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button
+                          size="icon-xs"
+                          variant="ghost"
+                          onClick={(e) => { e.stopPropagation(); setEditingId(project.id); setEditName(project.name) }}
+                        >
+                          <Pencil className="h-3 w-3 text-muted-foreground" />
+                        </Button>
+                        <Button
+                          size="icon-xs"
+                          variant="ghost"
+                          onClick={(e) => { e.stopPropagation(); setDeleteConfirmId(project.id) }}
+                        >
+                          <Trash2 className="h-3 w-3 text-muted-foreground" />
+                        </Button>
+                      </div>
+
+                      <ChevronRight className={cn('h-4 w-4 text-muted-foreground transition-transform shrink-0', isSelected && 'rotate-90')} />
+                    </>
+                  )}
+                </motion.div>
               )
             })
           )}
