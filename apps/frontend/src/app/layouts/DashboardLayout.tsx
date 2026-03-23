@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Settings, LogOut, Menu, X, CheckSquare, FolderOpen, Database, Clock, BarChart3 } from 'lucide-react'
+import { LayoutDashboard, Settings, LogOut, Menu, X, CheckSquare, FolderOpen, Database, Clock, BarChart3, StickyNote } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { authService } from '@/features/auth/services/authService'
@@ -15,6 +15,7 @@ const navItems = [
   { to: '/projects', label: 'Projects', icon: FolderOpen },
   { to: '/time-log', label: 'Time Log', icon: Clock },
   { to: '/reports', label: 'Reports', icon: BarChart3 },
+  { to: '/notes', label: 'Notes', icon: StickyNote },
   { to: '/data', label: 'Data', icon: Database },
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
