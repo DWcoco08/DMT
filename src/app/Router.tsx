@@ -4,6 +4,7 @@ import { DashboardLayout } from './layouts/DashboardLayout'
 import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute'
 import { LoginForm } from '@/features/auth/components/LoginForm'
 import { SignupForm } from '@/features/auth/components/SignupForm'
+import { DashboardPage } from '@/features/dashboard/components/DashboardPage'
 
 export function AppRouter() {
   return (
@@ -17,7 +18,7 @@ export function AppRouter() {
       {/* Protected routes */}
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<div className="text-foreground">Dashboard coming soon...</div>} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/settings" element={<div className="text-foreground">Settings coming soon...</div>} />
         </Route>
       </Route>
