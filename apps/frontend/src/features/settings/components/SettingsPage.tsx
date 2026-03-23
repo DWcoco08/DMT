@@ -12,10 +12,10 @@ export function SettingsPage() {
         <p className="text-sm text-muted-foreground">Manage your account and preferences</p>
       </div>
 
-      {/* Sections grid */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      {/* Sections stacked */}
+      <div className="space-y-5 max-w-2xl">
         {/* Profile */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm flex flex-col">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
               <User className="h-4 w-4 text-primary" />
@@ -42,8 +42,8 @@ export function SettingsPage() {
           <ThemeToggle />
         </div>
 
-        {/* GitHub — spans full width */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm lg:col-span-2">
+        {/* GitHub */}
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-500/10">
               <Github className="h-4 w-4 text-zinc-500" />

@@ -30,23 +30,21 @@ export function ProfileForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-1 flex-col">
-      <div className="space-y-4 flex-1">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" value={user?.email ?? ''} disabled />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="displayName">Display Name</Label>
-          <Input
-            id="displayName"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            placeholder="Your name"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" value={user?.email ?? ''} disabled />
       </div>
-      <Button type="submit" disabled={isLoading} className="mt-4">
+      <div className="space-y-2">
+        <Label htmlFor="displayName">Display Name</Label>
+        <Input
+          id="displayName"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          placeholder="Your name"
+        />
+      </div>
+      <Button type="submit" disabled={isLoading}>
         {isLoading ? 'Saving...' : 'Save Changes'}
       </Button>
     </form>

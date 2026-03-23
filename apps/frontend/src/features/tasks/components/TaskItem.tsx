@@ -30,6 +30,7 @@ export function TaskItem({ task }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState(task.title)
   const [showProjectPicker, setShowProjectPicker] = useState(false)
+  const [showStatusPicker, setShowStatusPicker] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -40,8 +41,11 @@ export function TaskItem({ task }: TaskItemProps) {
     }
   }, [isEditing])
 
-  function cycleStatus() {
-    updateStatus.mutate({ id: task.id, status: config.next })
+  function selectStatus(newStatus: TaskStatus) {
+    if (newStatus !== status) {
+      updateStatus.mutate({ id: task.id, status: newStatus })
+    }
+    setShowStatusPicker(false)
   }
 
   function startEdit() {
@@ -79,24 +83,49 @@ export function TaskItem({ task }: TaskItemProps) {
       className="group rounded-lg border border-border transition-colors hover:bg-accent/30"
     >
       <div className="flex items-center gap-3 p-3">
-        {/* Status circle — click to cycle */}
-        <button
-          onClick={cycleStatus}
-          title={`${config.label} → ${statusConfig[config.next].label}`}
-          className={cn(
-            'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
-            config.color, config.bg
+        {/* Status circle — click to open dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setShowStatusPicker(!showStatusPicker)}
+            className={cn(
+              'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
+              config.color, config.bg
+            )}
+          >
+            {status === 'completed' && (
+              <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            )}
+            {status === 'in_progress' && (
+              <div className="h-2 w-2 rounded-full bg-blue-500" />
+            )}
+            {status === 'pending' && (
+              <div className="h-2 w-2 rounded-full bg-yellow-500/60" />
+            )}
+          </button>
+
+          {showStatusPicker && (
+            <>
+              <div className="fixed inset-0 z-40" onClick={() => setShowStatusPicker(false)} />
+              <div className="absolute left-0 top-full z-50 mt-1 w-36 rounded-lg border border-border bg-card p-1 shadow-lg">
+                {(Object.entries(statusConfig) as [TaskStatus, typeof config][]).map(([key, cfg]) => (
+                  <button
+                    key={key}
+                    onClick={() => selectStatus(key)}
+                    className={cn(
+                      'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs transition-colors hover:bg-accent/50',
+                      key === status ? 'text-foreground font-medium' : 'text-muted-foreground'
+                    )}
+                  >
+                    <div className={cn('h-3 w-3 rounded-full border-2', cfg.color, cfg.bg)} />
+                    {cfg.label}
+                  </button>
+                ))}
+              </div>
+            </>
           )}
-        >
-          {status === 'completed' && (
-            <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          )}
-          {status === 'in_progress' && (
-            <div className="h-2 w-2 rounded-full bg-blue-500" />
-          )}
-        </button>
+        </div>
 
         {/* Title */}
         {isEditing ? (
