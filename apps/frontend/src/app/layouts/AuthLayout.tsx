@@ -1,12 +1,16 @@
 import { Outlet } from 'react-router-dom'
 import { Toaster } from '@/components/ui/sonner'
-import { Timer, BarChart3, CheckCircle2, Zap } from 'lucide-react'
+import { Timer, BarChart3, CheckSquare, FolderOpen, Cpu, StickyNote, Github, Sparkles } from 'lucide-react'
 
 const features = [
-  { icon: Timer, text: 'Track time across projects' },
-  { icon: BarChart3, text: 'Visualize your productivity' },
-  { icon: CheckCircle2, text: 'Manage tasks effortlessly' },
-  { icon: Zap, text: 'GitHub integration built-in' },
+  { icon: CheckSquare, text: 'Task management with search, filters & sorting' },
+  { icon: Timer, text: 'Time tracking with session history & analytics' },
+  { icon: FolderOpen, text: 'Organize work into color-coded projects' },
+  { icon: Cpu, text: 'Cyberpunk Pomodoro timer for deep focus' },
+  { icon: BarChart3, text: 'Productivity reports & daily/weekly charts' },
+  { icon: StickyNote, text: 'Dev journal with auto-save notes' },
+  { icon: Github, text: 'GitHub commits integration' },
+  { icon: Sparkles, text: 'Drag-and-drop customizable dashboard' },
 ]
 
 export function AuthLayout() {
@@ -34,10 +38,10 @@ export function AuthLayout() {
         <div className="relative z-10 space-y-8">
           <div>
             <h2 className="text-5xl font-bold leading-[1.15] tracking-tight text-white">
-              Build better.<br />Ship faster.<br />Track everything.
+              Your dev workflow.<br />One platform.<br />Zero friction.
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-zinc-300">
-              The all-in-one developer productivity platform. Track your time, manage tasks, visualize your coding habits, and ship projects faster than ever before.
+              CodeCraft brings together time tracking, task management, focus timers, analytics, and notes — everything a developer needs to stay productive and ship faster.
             </p>
           </div>
 
