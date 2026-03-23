@@ -145,7 +145,7 @@ function TasksTab() {
         <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground">
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
-          <option value="name">Name</option>
+          <option value="name">A-Z</option>
         </select>
       </div>
 
