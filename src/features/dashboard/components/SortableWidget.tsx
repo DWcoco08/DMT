@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { motion } from 'framer-motion'
-import { GripVertical, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useDashboardStore, type WidgetConfig } from '@/stores/dashboardStore'
 
@@ -56,15 +56,6 @@ export function SortableWidget({ widget, children }: SortableWidgetProps) {
       {/* Header */}
       <div className="relative mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {isEditMode && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-muted-foreground"
-            >
-              <GripVertical className="h-4 w-4" />
-            </motion.div>
-          )}
           <div>
             <h3 className="text-sm font-semibold text-foreground">{widget.title}</h3>
             <p className="text-[11px] text-muted-foreground">{widget.description}</p>
