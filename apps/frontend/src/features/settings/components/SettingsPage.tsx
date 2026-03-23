@@ -1,9 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ProfileForm } from './ProfileForm'
 import { ThemeToggle } from './ThemeToggle'
-import { ProjectManager } from './ProjectManager'
 import { GitHubConnect } from '@/features/github/components/GitHubConnect'
-import { DataExport } from './DataExport'
 
 export function SettingsPage() {
   return (
@@ -17,8 +15,6 @@ export function SettingsPage() {
         <TabsList>
           <TabsTrigger value="profile">Profile</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-          <TabsTrigger value="data">Data</TabsTrigger>
           <TabsTrigger value="github">GitHub</TabsTrigger>
         </TabsList>
 
@@ -33,20 +29,6 @@ export function SettingsPage() {
           <div className="max-w-md rounded-2xl border border-border bg-card p-6 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold text-foreground">Appearance</h2>
             <ThemeToggle />
-          </div>
-        </TabsContent>
-
-        <TabsContent value="projects" className="mt-6">
-          <div className="max-w-lg rounded-2xl border border-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">Manage Projects</h2>
-            <ProjectManager />
-          </div>
-        </TabsContent>
-
-        <TabsContent value="data" className="mt-6">
-          <div className="max-w-lg rounded-2xl border border-border bg-card p-6 shadow-sm">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">Export Data</h2>
-            <DataExport />
           </div>
         </TabsContent>
 
