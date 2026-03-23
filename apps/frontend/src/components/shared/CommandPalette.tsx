@@ -14,6 +14,9 @@ import {
   StickyNote,
   Database,
   Cpu,
+  Waves,
+  TreePine,
+  Sparkles,
 } from 'lucide-react'
 import {
   CommandDialog,
@@ -110,6 +113,18 @@ export function CommandPalette() {
           <CommandItem onSelect={() => runAndClose(() => setTheme('system'))}>
             <Monitor className="mr-2 h-4 w-4" />
             System Theme
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => setTheme('ocean'))}>
+            <Waves className="mr-2 h-4 w-4" />
+            Ocean Theme
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => setTheme('forest'))}>
+            <TreePine className="mr-2 h-4 w-4" />
+            Forest Theme
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => setTheme('purple'))}>
+            <Sparkles className="mr-2 h-4 w-4" />
+            Purple Theme
           </CommandItem>
         </CommandGroup>
       </CommandList>

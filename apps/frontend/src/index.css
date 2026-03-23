@@ -81,6 +81,114 @@
   --color-chart-5: hsl(340 75% 55%);
 }
 
+/* Ocean theme — deep blue */
+.theme-ocean {
+  --color-background: hsl(220 25% 6%);
+  --color-foreground: hsl(210 20% 95%);
+  --color-card: hsl(220 20% 8%);
+  --color-card-foreground: hsl(210 20% 95%);
+  --color-popover: hsl(220 20% 8%);
+  --color-popover-foreground: hsl(210 20% 95%);
+  --color-primary: hsl(210 100% 55%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(220 15% 14%);
+  --color-secondary-foreground: hsl(210 20% 95%);
+  --color-muted: hsl(220 15% 14%);
+  --color-muted-foreground: hsl(215 10% 55%);
+  --color-accent: hsl(220 15% 14%);
+  --color-accent-foreground: hsl(210 20% 95%);
+  --color-destructive: hsl(0 63% 31%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(220 15% 16%);
+  --color-input: hsl(220 15% 16%);
+  --color-ring: hsl(210 100% 55%);
+  --color-sidebar-background: hsl(220 25% 6%);
+  --color-sidebar-foreground: hsl(210 15% 80%);
+  --color-sidebar-primary: hsl(210 100% 55%);
+  --color-sidebar-primary-foreground: hsl(0 0% 98%);
+  --color-sidebar-accent: hsl(220 15% 14%);
+  --color-sidebar-accent-foreground: hsl(210 20% 90%);
+  --color-sidebar-border: hsl(220 15% 16%);
+  --color-sidebar-ring: hsl(210 100% 55%);
+  --color-chart-1: hsl(210 100% 55%);
+  --color-chart-2: hsl(190 80% 45%);
+  --color-chart-3: hsl(170 60% 40%);
+  --color-chart-4: hsl(230 70% 60%);
+  --color-chart-5: hsl(250 60% 55%);
+}
+
+/* Forest theme — deep green */
+.theme-forest {
+  --color-background: hsl(150 15% 5%);
+  --color-foreground: hsl(140 10% 93%);
+  --color-card: hsl(150 12% 7%);
+  --color-card-foreground: hsl(140 10% 93%);
+  --color-popover: hsl(150 12% 7%);
+  --color-popover-foreground: hsl(140 10% 93%);
+  --color-primary: hsl(145 65% 42%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(150 10% 12%);
+  --color-secondary-foreground: hsl(140 10% 93%);
+  --color-muted: hsl(150 10% 12%);
+  --color-muted-foreground: hsl(145 5% 52%);
+  --color-accent: hsl(150 10% 12%);
+  --color-accent-foreground: hsl(140 10% 93%);
+  --color-destructive: hsl(0 63% 31%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(150 8% 14%);
+  --color-input: hsl(150 8% 14%);
+  --color-ring: hsl(145 65% 42%);
+  --color-sidebar-background: hsl(150 15% 5%);
+  --color-sidebar-foreground: hsl(140 8% 78%);
+  --color-sidebar-primary: hsl(145 65% 42%);
+  --color-sidebar-primary-foreground: hsl(0 0% 98%);
+  --color-sidebar-accent: hsl(150 10% 12%);
+  --color-sidebar-accent-foreground: hsl(140 10% 88%);
+  --color-sidebar-border: hsl(150 8% 14%);
+  --color-sidebar-ring: hsl(145 65% 42%);
+  --color-chart-1: hsl(145 65% 42%);
+  --color-chart-2: hsl(120 50% 50%);
+  --color-chart-3: hsl(80 60% 45%);
+  --color-chart-4: hsl(170 55% 40%);
+  --color-chart-5: hsl(40 70% 55%);
+}
+
+/* Purple theme — deep violet */
+.theme-purple {
+  --color-background: hsl(270 20% 6%);
+  --color-foreground: hsl(260 15% 95%);
+  --color-card: hsl(270 16% 8%);
+  --color-card-foreground: hsl(260 15% 95%);
+  --color-popover: hsl(270 16% 8%);
+  --color-popover-foreground: hsl(260 15% 95%);
+  --color-primary: hsl(265 85% 60%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(270 12% 14%);
+  --color-secondary-foreground: hsl(260 15% 95%);
+  --color-muted: hsl(270 12% 14%);
+  --color-muted-foreground: hsl(265 8% 55%);
+  --color-accent: hsl(270 12% 14%);
+  --color-accent-foreground: hsl(260 15% 95%);
+  --color-destructive: hsl(0 63% 31%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(270 10% 16%);
+  --color-input: hsl(270 10% 16%);
+  --color-ring: hsl(265 85% 60%);
+  --color-sidebar-background: hsl(270 20% 6%);
+  --color-sidebar-foreground: hsl(260 10% 80%);
+  --color-sidebar-primary: hsl(265 85% 60%);
+  --color-sidebar-primary-foreground: hsl(0 0% 98%);
+  --color-sidebar-accent: hsl(270 12% 14%);
+  --color-sidebar-accent-foreground: hsl(260 15% 90%);
+  --color-sidebar-border: hsl(270 10% 16%);
+  --color-sidebar-ring: hsl(265 85% 60%);
+  --color-chart-1: hsl(265 85% 60%);
+  --color-chart-2: hsl(290 60% 55%);
+  --color-chart-3: hsl(320 65% 50%);
+  --color-chart-4: hsl(240 60% 55%);
+  --color-chart-5: hsl(200 55% 50%);
+}
+
 @layer base {
   * {
     @apply border-border;
