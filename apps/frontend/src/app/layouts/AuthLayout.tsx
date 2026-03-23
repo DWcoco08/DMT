@@ -15,18 +15,18 @@ const features = [
 
 export function AuthLayout() {
   return (
-    <div className="flex min-h-screen">
-      {/* Left panel — background image */}
-      <div
-        className="hidden w-1/2 flex-col justify-between p-12 lg:flex relative"
-        style={{
-          backgroundImage: 'url(/Arcade_decay_red.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+    <div
+      className="relative flex min-h-screen"
+      style={{
+        backgroundImage: 'url(/Arcade_decay_red.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Left panel — clear image with dark overlay */}
+      <div className="hidden w-1/2 flex-col justify-between p-12 lg:flex relative">
+        <div className="absolute inset-0 bg-black/50" />
 
         <div className="relative z-10">
           <div className="flex items-center gap-3">
@@ -37,10 +37,10 @@ export function AuthLayout() {
 
         <div className="relative z-10 space-y-8">
           <div>
-            <h2 className="text-5xl font-bold leading-[1.15] tracking-tight text-white">
+            <h2 className="text-5xl font-bold leading-[1.15] tracking-tight text-white drop-shadow-lg">
               Your dev workflow.<br />One platform.<br />Zero friction.
             </h2>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-zinc-300">
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-zinc-200 drop-shadow-md">
               DevPulse brings together time tracking, task management, focus timers, analytics, and notes — everything a developer needs to stay productive and ship faster.
             </p>
           </div>
@@ -51,26 +51,21 @@ export function AuthLayout() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
                   <f.icon className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-[15px] text-zinc-200">{f.text}</span>
+                <span className="text-[15px] text-zinc-100 drop-shadow-sm">{f.text}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="relative z-10 text-xs text-zinc-500">
+        <p className="relative z-10 text-xs text-zinc-400">
           &copy; 2026 DevPulse. Built for developers, by developers.
         </p>
       </div>
 
-      {/* Right panel — warmer red-black, distinct from sidebar */}
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden p-6 lg:w-1/2">
-        {/* Gradient background — brighter red undertone than sidebar */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0608] via-[#1c0c0e] to-[#120509]" />
-
-        {/* Red glow accents — more vivid */}
-        <div className="absolute -top-32 -right-32 h-72 w-72 rounded-full bg-red-800/25 blur-[100px]" />
-        <div className="absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-red-700/20 blur-[100px]" />
-        <div className="absolute top-1/3 right-1/4 h-60 w-60 rounded-full bg-red-900/15 blur-[80px]" />
+      {/* Right panel — blurred image with form */}
+      <div className="relative flex w-full flex-col items-center justify-center p-6 lg:w-1/2">
+        {/* Blur overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />
 
         {/* Mobile logo */}
         <div className="relative z-10 mb-8 flex items-center gap-2 lg:hidden">
@@ -79,7 +74,7 @@ export function AuthLayout() {
         </div>
 
         {/* Glassmorphism form card */}
-        <div className="auth-form-panel relative z-10 w-full max-w-sm rounded-2xl border border-white/10 bg-white/[0.05] p-8 shadow-2xl backdrop-blur-xl">
+        <div className="auth-form-panel relative z-10 w-full max-w-sm rounded-2xl border border-white/10 bg-white/[0.05] p-8 shadow-2xl backdrop-blur-md">
           <Outlet />
         </div>
 
