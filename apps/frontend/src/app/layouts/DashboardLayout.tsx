@@ -35,9 +35,9 @@ export function DashboardLayout() {
   const sidebarContent = (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex h-14 items-center gap-2.5 border-b border-sidebar-border px-5">
-        <img src="/logo-icon.png" alt="DevPulse" className="h-8 w-8 object-contain" />
-        <span className="text-xl font-semibold text-sidebar-foreground">DevPulse</span>
+      <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-5">
+        <img src="/logo-icon.png" alt="DevPulse" className="h-10 w-10 object-contain" />
+        <span className="text-xl font-bold text-sidebar-foreground">DevPulse</span>
       </div>
 
       {/* Navigation */}

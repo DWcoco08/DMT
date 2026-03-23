@@ -25,17 +25,15 @@ export function AuthLayout() {
       }}
     >
       {/* Left panel — clear image with dark overlay */}
-      <div className="hidden w-1/2 flex-col justify-between p-12 lg:flex relative">
+      <div className="hidden w-1/2 flex-col justify-center items-center p-12 lg:flex relative">
         <div className="absolute inset-0 bg-black/50" />
 
-        <div className="relative z-10">
+        <div className="relative z-10 space-y-6 max-w-lg">
           <div className="flex items-center gap-3">
-            <img src="/logo-icon.png" alt="DevPulse" className="h-10 w-10 object-contain" />
-            <span className="text-2xl font-bold text-white">DevPulse</span>
+            <img src="/logo-icon.png" alt="DevPulse" className="h-12 w-12 object-contain" />
+            <span className="text-3xl font-extrabold text-white tracking-tight drop-shadow-lg">DevPulse</span>
           </div>
-        </div>
 
-        <div className="relative z-10 space-y-8">
           <div>
             <h2 className="text-5xl font-bold leading-[1.15] tracking-tight text-white drop-shadow-lg">
               Your dev workflow.<br />One platform.<br />Zero friction.
@@ -57,20 +55,20 @@ export function AuthLayout() {
           </div>
         </div>
 
-        <p className="relative z-10 text-xs text-zinc-400">
+        <p className="relative z-10 text-xs text-zinc-400 mt-8">
           &copy; 2026 DevPulse. Built for developers, by developers.
         </p>
       </div>
 
-      {/* Right panel — blurred image with form */}
+      {/* Right panel — clear image with dark overlay */}
       <div className="relative flex w-full flex-col items-center justify-center p-6 lg:w-1/2">
-        {/* Blur overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" />
+        {/* Dark overlay — no blur */}
+        <div className="absolute inset-0 bg-black/70" />
 
         {/* Mobile logo */}
         <div className="relative z-10 mb-8 flex items-center gap-2 lg:hidden">
-          <img src="/logo-icon.png" alt="DevPulse" className="h-9 w-9 object-contain" />
-          <span className="text-xl font-bold text-white">DevPulse</span>
+          <img src="/logo-icon.png" alt="DevPulse" className="h-11 w-11 object-contain" />
+          <span className="text-2xl font-bold text-white">DevPulse</span>
         </div>
 
         {/* Glassmorphism form card */}
