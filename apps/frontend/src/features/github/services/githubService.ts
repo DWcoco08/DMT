@@ -42,10 +42,21 @@ export const githubService = {
         if (event.type !== 'PushEvent') continue
         if (event.created_at < since) continue
 
-        for (const commit of event.payload.commits ?? []) {
+        const eventCommits = event.payload.commits
+        if (eventCommits && eventCommits.length > 0) {
+          for (const commit of eventCommits) {
+            commits.push({
+              sha: commit.sha.slice(0, 7),
+              message: commit.message.split('\n')[0],
+              date: event.created_at,
+              repo: event.repo.name,
+            })
+          }
+        } else {
+          // Fallback: no commits detail, count the push as 1 commit
           commits.push({
-            sha: commit.sha.slice(0, 7),
-            message: commit.message.split('\n')[0],
+            sha: event.payload.head?.slice(0, 7) ?? event.id.slice(0, 7),
+            message: `Push to ${event.payload.ref?.replace('refs/heads/', '') ?? 'main'}`,
             date: event.created_at,
             repo: event.repo.name,
           })
