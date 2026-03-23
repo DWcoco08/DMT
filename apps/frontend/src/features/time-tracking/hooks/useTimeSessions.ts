@@ -16,6 +16,13 @@ export function useSessionsForRange(startDate: string, endDate: string) {
   })
 }
 
+export function useFilteredSessions(projectId?: string, startDate?: string, endDate?: string) {
+  return useQuery({
+    queryKey: ['time-sessions', 'filtered', projectId, startDate, endDate],
+    queryFn: () => timeSessionService.getFilteredSessions(projectId, startDate, endDate),
+  })
+}
+
 export function useSessionsByProject() {
   return useQuery({
     queryKey: ['time-sessions', 'by-project'],

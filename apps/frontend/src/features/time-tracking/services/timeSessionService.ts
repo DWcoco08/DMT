@@ -59,6 +59,22 @@ export const timeSessionService = {
     return data as TimeSession[]
   },
 
+  async getFilteredSessions(projectId?: string, startDate?: string, endDate?: string): Promise<TimeSession[]> {
+    let query = supabase
+      .from('time_sessions')
+      .select('*')
+      .not('end_time', 'is', null)
+      .order('start_time', { ascending: false })
+
+    if (projectId) query = query.eq('project_id', projectId)
+    if (startDate) query = query.gte('start_time', startDate)
+    if (endDate) query = query.lte('start_time', endDate)
+
+    const { data, error } = await query
+    if (error) throw error
+    return data as TimeSession[]
+  },
+
   async getSessionsByProject(): Promise<{ project_id: string; total_duration: number }[]> {
     const { data, error } = await supabase
       .from('time_sessions')
