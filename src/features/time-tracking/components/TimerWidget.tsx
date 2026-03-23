@@ -19,7 +19,7 @@ export function TimerWidget() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-3">
       {/* Timer display */}
       <div className="relative flex items-center justify-center">
         {timer.isRunning && (
@@ -29,8 +29,8 @@ export function TimerWidget() {
             transition={{ duration: 2, repeat: Infinity }}
           />
         )}
-        <div className="relative flex h-32 w-32 items-center justify-center rounded-full border-4 border-border bg-card">
-          <span className="text-2xl font-mono font-bold text-foreground tabular-nums">
+        <div className="relative flex h-24 w-24 items-center justify-center rounded-full border-4 border-border bg-card">
+          <span className="text-lg font-mono font-bold text-foreground tabular-nums">
             {formatDuration(timer.elapsed)}
           </span>
         </div>

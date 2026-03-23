@@ -24,20 +24,20 @@ export function StatCards() {
   ]
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
       {cards.map((card, i) => (
         <motion.div
           key={card.label}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 }}
-          className="rounded-2xl border border-border bg-card p-4 shadow-sm"
+          className="rounded-2xl border border-border bg-card p-3 shadow-sm"
         >
           <div className="flex items-center gap-2">
             {card.icon}
             <span className="text-xs text-muted-foreground">{card.label}</span>
           </div>
-          <p className="mt-2 text-2xl font-bold text-foreground">{card.value}</p>
+          <p className="mt-1.5 text-xl font-bold text-foreground">{card.value}</p>
         </motion.div>
       ))}
     </div>
