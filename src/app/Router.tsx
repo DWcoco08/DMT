@@ -5,6 +5,7 @@ import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute'
 import { LoginForm } from '@/features/auth/components/LoginForm'
 import { SignupForm } from '@/features/auth/components/SignupForm'
 import { DashboardPage } from '@/features/dashboard/components/DashboardPage'
+import { SettingsPage } from '@/features/settings/components/SettingsPage'
 
 export function AppRouter() {
   return (
@@ -19,7 +20,7 @@ export function AppRouter() {
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/settings" element={<div className="text-foreground">Settings coming soon...</div>} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Route>
       </Route>
 
