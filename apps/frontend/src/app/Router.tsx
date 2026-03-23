@@ -21,6 +21,9 @@ const SettingsPage = lazy(() =>
 const ForgotPasswordForm = lazy(() =>
   import('@/features/auth/components/ForgotPasswordForm').then((m) => ({ default: m.ForgotPasswordForm }))
 )
+const TasksPage = lazy(() =>
+  import('@/features/tasks/components/TasksPage').then((m) => ({ default: m.TasksPage }))
+)
 
 function PageFallback() {
   return (
@@ -87,6 +90,14 @@ export function AppRouter() {
               element={
                 <Suspense fallback={<PageFallback />}>
                   <AnimatedPage><DashboardPage /></AnimatedPage>
+                </Suspense>
+              }
+            />
+            <Route
+              path="/tasks"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <AnimatedPage><TasksPage /></AnimatedPage>
                 </Suspense>
               }
             />

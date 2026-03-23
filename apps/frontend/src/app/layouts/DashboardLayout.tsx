@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Settings, LogOut, Menu, X } from 'lucide-react'
+import { LayoutDashboard, Settings, LogOut, Menu, X, CheckSquare } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { authService } from '@/features/auth/services/authService'
@@ -11,6 +11,7 @@ import { useRealtimeSync } from '@/hooks/useRealtimeSync'
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/tasks', label: 'Tasks', icon: CheckSquare },
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
