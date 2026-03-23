@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, FolderOpen, Clock, CheckCircle2, ChevronRight, X } from 'lucide-react'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { formatHours } from '@/lib/utils'
+import { cn, formatHours } from '@/lib/utils'
 import { useProjects, useDeleteProject } from '../hooks/useProjects'
 import { useTasks } from '@/features/tasks/hooks/useTasks'
 import { useSessionsByProject } from '@/features/time-tracking/hooks/useTimeSessions'
@@ -31,6 +30,7 @@ export function ProjectsPage() {
 
   const durationMap = new Map(sessionsByProject?.map((s) => [s.project_id, s.total_duration]) ?? [])
   const totalHours = Array.from(durationMap.values()).reduce((a, b) => a + b, 0)
+  const totalTasks = allTasks?.length ?? 0
 
   function getProjectTasks(projectId: string) {
     return allTasks?.filter((t) => t.project_id === projectId) ?? []
@@ -55,19 +55,25 @@ export function ProjectsPage() {
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Projects</h1>
           <p className="text-sm text-muted-foreground">Organize your work</p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="text-center">
-            <p className="text-xl font-bold text-foreground">{projects?.length ?? 0}</p>
-            <p className="text-[11px] text-muted-foreground">Projects</p>
-          </div>
-          <div className="text-center">
-            <p className="text-xl font-bold text-foreground">{formatHours(totalHours)}</p>
-            <p className="text-[11px] text-muted-foreground">Total</p>
-          </div>
-          <Button size="sm" onClick={() => setShowForm(true)} className="gap-1.5">
-            <Plus className="h-3.5 w-3.5" />
-            New Project
-          </Button>
+        <Button size="sm" onClick={() => setShowForm(true)} className="gap-1.5">
+          <Plus className="h-3.5 w-3.5" />
+          New Project
+        </Button>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">{projects?.length ?? 0}</p>
+          <p className="text-xs text-muted-foreground mt-1">Projects</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">{totalTasks}</p>
+          <p className="text-xs text-muted-foreground mt-1">Total Tasks</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">{formatHours(totalHours)}</p>
+          <p className="text-xs text-muted-foreground mt-1">Total Hours</p>
         </div>
       </div>
 
@@ -120,7 +126,7 @@ export function ProjectsPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="hidden w-1/2 rounded-2xl border border-border bg-card p-6 shadow-sm lg:block"
+              className="hidden w-1/2 rounded-2xl border border-border bg-card p-6 shadow-sm lg:block self-start"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">

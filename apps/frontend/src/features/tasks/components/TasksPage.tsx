@@ -48,24 +48,24 @@ export function TasksPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Tasks</h1>
-          <p className="text-sm text-muted-foreground">Manage all your tasks in one place</p>
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Tasks</h1>
+        <p className="text-sm text-muted-foreground">Manage all your tasks in one place</p>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">{total}</p>
+          <p className="text-xs text-muted-foreground mt-1">Total Tasks</p>
         </div>
-        <div className="flex gap-4 text-center">
-          <div>
-            <p className="text-xl font-bold text-foreground">{total}</p>
-            <p className="text-[11px] text-muted-foreground">Total</p>
-          </div>
-          <div>
-            <p className="text-xl font-bold text-yellow-500">{pending}</p>
-            <p className="text-[11px] text-muted-foreground">Pending</p>
-          </div>
-          <div>
-            <p className="text-xl font-bold text-green-500">{completed}</p>
-            <p className="text-[11px] text-muted-foreground">Done</p>
-          </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-yellow-500">{pending}</p>
+          <p className="text-xs text-muted-foreground mt-1">Pending</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-green-500">{completed}</p>
+          <p className="text-xs text-muted-foreground mt-1">Completed</p>
         </div>
       </div>
 
@@ -76,7 +76,6 @@ export function TasksPage() {
 
       {/* Filters bar */}
       <div className="flex flex-wrap items-center gap-3">
-        {/* Search */}
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -86,8 +85,6 @@ export function TasksPage() {
             className="pl-10"
           />
         </div>
-
-        {/* Project filter */}
         <select
           value={projectFilter}
           onChange={(e) => setProjectFilter(e.target.value)}
@@ -98,8 +95,6 @@ export function TasksPage() {
             <option key={p.id} value={p.id}>{p.name}</option>
           ))}
         </select>
-
-        {/* Sort */}
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as Sort)}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AlertTriangle } from 'lucide-react'
+import { AlertTriangle, HardDrive, Download, Shield } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -38,25 +38,48 @@ export function DataPage() {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Data</h1>
         <p className="text-sm text-muted-foreground">Export or manage your data</p>
       </div>
 
-      {/* Export */}
-      <div className="max-w-lg rounded-2xl border border-border bg-card p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold text-foreground">Export Data</h2>
+      {/* Info cards */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+          <div className="flex items-center gap-3 mb-1">
+            <Download className="h-5 w-5 text-primary" />
+            <h2 className="text-base font-semibold text-foreground">Export</h2>
+          </div>
+          <p className="text-xs text-muted-foreground">Download your data as CSV or JSON</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+          <div className="flex items-center gap-3 mb-1">
+            <Shield className="h-5 w-5 text-green-500" />
+            <h2 className="text-base font-semibold text-foreground">Privacy</h2>
+          </div>
+          <p className="text-xs text-muted-foreground">Your data is encrypted and only accessible by you</p>
+        </div>
+      </div>
+
+      {/* Export section */}
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className="flex items-center gap-3 mb-5">
+          <HardDrive className="h-5 w-5 text-muted-foreground" />
+          <h2 className="text-lg font-semibold text-foreground">Export Data</h2>
+        </div>
         <DataExport />
       </div>
 
       {/* Danger Zone */}
-      <div className="max-w-lg rounded-2xl border border-destructive/30 bg-card p-6 shadow-sm">
-        <div className="flex items-center gap-2 mb-4">
+      <div className="rounded-2xl border border-destructive/30 bg-destructive/[0.03] p-6 shadow-sm">
+        <div className="flex items-center gap-3 mb-3">
           <AlertTriangle className="h-5 w-5 text-destructive" />
           <h2 className="text-lg font-semibold text-destructive">Danger Zone</h2>
         </div>
-        <p className="text-sm text-muted-foreground mb-4">
-          Permanently delete all your projects, tasks, time sessions, and activities. This action cannot be undone.
+        <p className="text-sm text-muted-foreground mb-5">
+          Permanently delete all your projects, tasks, time sessions, and activities.
+          This action cannot be undone. We recommend exporting your data first.
         </p>
         <Button variant="destructive" onClick={() => setShowDeleteDialog(true)}>
           Delete All Data

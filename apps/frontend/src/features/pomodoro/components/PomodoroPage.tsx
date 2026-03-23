@@ -21,26 +21,27 @@ export function PomodoroPage() {
   const minutes = Math.floor(pomo.timeLeft / 60)
   const seconds = pomo.timeLeft % 60
   const progress = 1 - pomo.timeLeft / config.duration
-  const circumference = 2 * Math.PI * 90
+  const radius = 130
+  const circumference = 2 * Math.PI * radius
   const strokeDashoffset = circumference * (1 - progress)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Pomodoro</h1>
-        <p className="text-sm text-muted-foreground">Stay focused with timed work sessions</p>
+      <div className="text-center">
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Pomodoro Timer</h1>
+        <p className="text-sm text-muted-foreground mt-1">Stay focused with timed work sessions</p>
       </div>
 
-      <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-10">
         {/* Mode tabs */}
-        <div className="flex gap-1 rounded-lg bg-muted p-1">
+        <div className="flex gap-1 rounded-xl bg-muted p-1.5">
           {modes.map((m) => (
             <button
               key={m}
               onClick={() => pomo.switchMode(m)}
               className={cn(
-                'rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                'rounded-lg px-6 py-2.5 text-sm font-medium transition-colors',
                 pomo.mode === m
                   ? 'bg-background text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
@@ -53,24 +54,22 @@ export function PomodoroPage() {
 
         {/* Circular timer */}
         <div className="relative flex items-center justify-center">
-          <svg width="220" height="220" className="-rotate-90">
-            {/* Background circle */}
+          <svg width="300" height="300" className="-rotate-90">
             <circle
-              cx="110"
-              cy="110"
-              r="90"
+              cx="150"
+              cy="150"
+              r={radius}
               fill="none"
               stroke="var(--color-border)"
-              strokeWidth="6"
+              strokeWidth="8"
             />
-            {/* Progress circle */}
             <circle
-              cx="110"
-              cy="110"
-              r="90"
+              cx="150"
+              cy="150"
+              r={radius}
               fill="none"
               className={config.bgColor}
-              strokeWidth="6"
+              strokeWidth="8"
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={strokeDashoffset}
@@ -78,39 +77,40 @@ export function PomodoroPage() {
             />
           </svg>
           <div className="absolute flex flex-col items-center">
-            <span className="text-5xl font-bold font-mono text-foreground tabular-nums">
+            <span className="text-7xl font-bold font-mono text-foreground tabular-nums">
               {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
             </span>
-            <span className={cn('text-sm font-medium mt-1', config.color)}>
+            <span className={cn('text-lg font-medium mt-2', config.color)}>
               {config.label}
             </span>
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Button
             variant="outline"
-            size="icon"
+            size="lg"
             onClick={pomo.reset}
             title="Reset"
+            className="h-12 w-12"
           >
-            <RotateCcw className="h-4 w-4" />
+            <RotateCcw className="h-5 w-5" />
           </Button>
 
           <Button
             size="lg"
             onClick={pomo.isRunning ? pomo.pause : pomo.start}
-            className="gap-2 px-8"
+            className="gap-2 px-10 h-14 text-base"
           >
             {pomo.isRunning ? (
               <>
-                <Pause className="h-4 w-4" />
+                <Pause className="h-5 w-5" />
                 Pause
               </>
             ) : (
               <>
-                <Play className="h-4 w-4" />
+                <Play className="h-5 w-5" />
                 Start
               </>
             )}
@@ -118,38 +118,40 @@ export function PomodoroPage() {
 
           <Button
             variant="outline"
-            size="icon"
+            size="lg"
             onClick={pomo.skip}
             title="Skip"
+            className="h-12 w-12"
           >
-            <SkipForward className="h-4 w-4" />
+            <SkipForward className="h-5 w-5" />
           </Button>
         </div>
 
         {/* Session counter */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
               className={cn(
-                'h-3 w-3 rounded-full transition-colors',
+                'h-4 w-4 rounded-full transition-colors',
                 i <= pomo.completedPomodoros % 4
                   ? 'bg-red-500'
                   : 'bg-muted'
               )}
             />
           ))}
-          <span className="ml-2 text-sm text-muted-foreground">
+          <span className="ml-2 text-base text-muted-foreground">
             {pomo.completedPomodoros} sessions completed
           </span>
         </div>
 
         {/* Project selector */}
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-sm">
+          <label className="block text-sm font-medium text-muted-foreground mb-2">Working on</label>
           <select
             value={pomo.projectId ?? ''}
             onChange={(e) => pomo.setProjectId(e.target.value || null)}
-            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
+            className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground"
           >
             <option value="">No project</option>
             {projects?.map((p) => (

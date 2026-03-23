@@ -23,14 +23,26 @@ export function TimeLogPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Time Log</h1>
-          <p className="text-sm text-muted-foreground">Your complete time tracking history</p>
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Time Log</h1>
+        <p className="text-sm text-muted-foreground">Your complete time tracking history</p>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">{formatHours(totalSeconds)}</p>
+          <p className="text-xs text-muted-foreground mt-1">Total Hours</p>
         </div>
-        <div className="text-center">
-          <p className="text-xl font-bold text-foreground">{formatHours(totalSeconds)}</p>
-          <p className="text-[11px] text-muted-foreground">{sessions?.length ?? 0} sessions</p>
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">{sessions?.length ?? 0}</p>
+          <p className="text-xs text-muted-foreground mt-1">Sessions</p>
+        </div>
+        <div className="hidden sm:block rounded-2xl border border-border bg-card p-4 shadow-sm text-center">
+          <p className="text-2xl font-bold text-foreground">
+            {sessions?.length ? formatDuration(Math.round(totalSeconds / sessions.length)) : '—'}
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">Avg Duration</p>
         </div>
       </div>
 
@@ -65,7 +77,6 @@ export function TimeLogPage() {
 
       {/* Sessions table */}
       <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
-        {/* Table header */}
         <div className="grid grid-cols-4 gap-4 border-b border-border bg-muted/30 px-4 py-3 text-xs font-medium text-muted-foreground">
           <span>Project</span>
           <span>Start</span>
@@ -73,7 +84,6 @@ export function TimeLogPage() {
           <span className="text-right">Duration</span>
         </div>
 
-        {/* Rows */}
         {isLoading ? (
           <div className="p-4 space-y-2">
             {[1, 2, 3, 4, 5].map((i) => (
