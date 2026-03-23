@@ -7,6 +7,13 @@ import {
   Moon,
   Monitor,
   Timer,
+  CheckSquare,
+  FolderOpen,
+  Clock,
+  BarChart3,
+  StickyNote,
+  Database,
+  Cpu,
 } from 'lucide-react'
 import {
   CommandDialog,
@@ -48,11 +55,39 @@ export function CommandPalette() {
         <CommandGroup heading="Navigation">
           <CommandItem onSelect={() => runAndClose(() => navigate('/dashboard'))}>
             <LayoutDashboard className="mr-2 h-4 w-4" />
-            Go to Dashboard
+            Dashboard
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/tasks'))}>
+            <CheckSquare className="mr-2 h-4 w-4" />
+            Tasks
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/projects'))}>
+            <FolderOpen className="mr-2 h-4 w-4" />
+            Projects
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/time-log'))}>
+            <Clock className="mr-2 h-4 w-4" />
+            Time Log
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/pomodoro'))}>
+            <Cpu className="mr-2 h-4 w-4" />
+            Pomodoro
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/reports'))}>
+            <BarChart3 className="mr-2 h-4 w-4" />
+            Reports
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/notes'))}>
+            <StickyNote className="mr-2 h-4 w-4" />
+            Notes
+          </CommandItem>
+          <CommandItem onSelect={() => runAndClose(() => navigate('/data'))}>
+            <Database className="mr-2 h-4 w-4" />
+            Data
           </CommandItem>
           <CommandItem onSelect={() => runAndClose(() => navigate('/settings'))}>
             <Settings className="mr-2 h-4 w-4" />
-            Go to Settings
+            Settings
           </CommandItem>
         </CommandGroup>
 
