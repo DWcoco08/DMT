@@ -29,7 +29,7 @@ export function PomodoroPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Pomodoro Timer</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Pomodoro Timer</h1>
         <p className="text-sm text-muted-foreground mt-1">Stay focused with timed work sessions</p>
       </div>
 

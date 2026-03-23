@@ -49,7 +49,7 @@ export function TasksPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Tasks</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Tasks</h1>
         <p className="text-sm text-muted-foreground">Manage all your tasks in one place</p>
       </div>
 

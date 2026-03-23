@@ -40,7 +40,7 @@ export function DataPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Data</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Data</h1>
         <p className="text-sm text-muted-foreground">Export or manage your data</p>
       </div>
 

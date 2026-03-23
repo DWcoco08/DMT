@@ -52,7 +52,7 @@ export function ProjectsPage() {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Projects</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Projects</h1>
           <p className="text-sm text-muted-foreground">Organize your work</p>
         </div>
         <Button size="sm" onClick={() => setShowForm(true)} className="gap-1.5">
