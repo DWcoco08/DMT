@@ -6,8 +6,14 @@ import { TaskList } from '@/features/tasks/components/TaskList'
 import { ProjectsOverview } from './ProjectsOverview'
 import { ProductivityChart } from '@/features/analytics/components/ProductivityChart'
 import { ActivityFeed } from '@/features/activity/components/ActivityFeed'
+import { GitHubCommitsChart } from '@/features/github/components/GitHubCommitsChart'
+import { GitHubRecentCommits } from '@/features/github/components/GitHubRecentCommits'
+import { useGitHubStore } from '@/features/github/hooks/useGitHub'
 
 export function DashboardPage() {
+  const { token } = useGitHubStore()
+  const hasGitHub = !!token
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -51,11 +57,27 @@ export function DashboardPage() {
           <ActivityFeed />
         </BentoCard>
 
+        {/* GitHub widgets — only show when connected */}
+        <BentoCard
+          title="GitHub Commits"
+          description="Commits per day"
+          className="lg:col-span-2"
+          index={5}
+        >
+          <GitHubCommitsChart />
+        </BentoCard>
+
+        {hasGitHub && (
+          <BentoCard title="Recent Commits" description="Latest pushes" index={6}>
+            <GitHubRecentCommits />
+          </BentoCard>
+        )}
+
         <BentoCard
           title="Recent Sessions"
           description="Your latest time entries"
-          className="lg:col-span-2"
-          index={5}
+          className={hasGitHub ? 'lg:col-span-2' : 'lg:col-span-3'}
+          index={7}
         >
           <SessionHistory />
         </BentoCard>

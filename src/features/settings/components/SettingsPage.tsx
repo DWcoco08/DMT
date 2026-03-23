@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ProfileForm } from './ProfileForm'
 import { ThemeToggle } from './ThemeToggle'
 import { ProjectManager } from './ProjectManager'
+import { GitHubConnect } from '@/features/github/components/GitHubConnect'
 
 export function SettingsPage() {
   return (
@@ -16,6 +17,7 @@ export function SettingsPage() {
           <TabsTrigger value="profile">Profile</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
           <TabsTrigger value="projects">Projects</TabsTrigger>
+          <TabsTrigger value="github">GitHub</TabsTrigger>
         </TabsList>
 
         <TabsContent value="profile" className="mt-6">
@@ -36,6 +38,13 @@ export function SettingsPage() {
           <div className="max-w-lg rounded-2xl border border-border bg-card p-6 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold text-foreground">Manage Projects</h2>
             <ProjectManager />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="github" className="mt-6">
+          <div className="max-w-md rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <h2 className="mb-4 text-lg font-semibold text-foreground">GitHub Integration</h2>
+            <GitHubConnect />
           </div>
         </TabsContent>
       </Tabs>
