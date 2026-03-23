@@ -14,6 +14,8 @@ const navItems = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
+const sidebarClasses = 'bg-gradient-to-b from-[#0a0a0a] via-[#1a0a0a] to-[#0d0508]'
+
 export function DashboardLayout() {
   const navigate = useNavigate()
   const { user } = useAuth()
@@ -28,9 +30,9 @@ export function DashboardLayout() {
   const sidebarContent = (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex h-14 items-center gap-2.5 border-b border-border px-5">
+      <div className="flex h-14 items-center gap-2.5 border-b border-white/10 px-5">
         <img src="/logo-icon.png" alt="CodeCraft" className="h-8 w-8 object-contain" />
-        <span className="text-xl font-semibold text-foreground">CodeCraft</span>
+        <span className="text-xl font-semibold text-white">CodeCraft</span>
       </div>
 
       {/* Navigation */}
@@ -44,8 +46,8 @@ export function DashboardLayout() {
               cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors',
                 isActive
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                  ? 'bg-white/10 text-white'
+                  : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200'
               )
             }
           >
@@ -57,19 +59,19 @@ export function DashboardLayout() {
 
       {/* Command palette hint */}
       <div className="px-3 pb-2">
-        <p className="text-[11px] text-muted-foreground text-center">
-          <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[11px] font-mono">Ctrl+K</kbd> commands
+        <p className="text-[11px] text-zinc-600 text-center">
+          <kbd className="rounded border border-white/10 bg-white/5 px-1 py-0.5 text-[11px] font-mono text-zinc-500">Ctrl+K</kbd> commands
         </p>
       </div>
 
       {/* User info + Sign out */}
-      <div className="border-t border-border p-3 space-y-1.5">
+      <div className="border-t border-white/10 p-3 space-y-1.5">
         {user && (
-          <p className="truncate px-3 text-xs text-muted-foreground">{user.email}</p>
+          <p className="truncate px-3 text-xs text-zinc-500">{user.email}</p>
         )}
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent/50"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[15px] font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-zinc-200"
         >
           <LogOut className="h-5 w-5" />
           Sign Out
@@ -81,7 +83,7 @@ export function DashboardLayout() {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Desktop Sidebar */}
-      <aside className="hidden w-52 shrink-0 border-r border-border bg-sidebar-background md:block sticky top-0 h-screen overflow-y-auto">
+      <aside className={cn('hidden w-52 shrink-0 border-r border-white/10 md:block sticky top-0 h-screen overflow-y-auto', sidebarClasses)}>
         {sidebarContent}
       </aside>
 
@@ -96,7 +98,8 @@ export function DashboardLayout() {
       {/* Mobile Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-52 border-r border-border bg-sidebar-background transition-transform md:hidden',
+          'fixed inset-y-0 left-0 z-50 w-52 border-r border-white/10 transition-transform md:hidden',
+          sidebarClasses,
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
