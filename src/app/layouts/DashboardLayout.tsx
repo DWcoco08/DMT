@@ -6,6 +6,7 @@ import { authService } from '@/features/auth/services/authService'
 import { useAuth } from '@/features/auth/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/sonner'
+import { CommandPalette } from '@/components/shared/CommandPalette'
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -53,6 +54,13 @@ export function DashboardLayout() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Command palette hint */}
+      <div className="px-4 pb-2">
+        <p className="text-[10px] text-muted-foreground text-center">
+          Press <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px] font-mono">Ctrl+K</kbd> for commands
+        </p>
+      </div>
 
       {/* User info + Sign out */}
       <div className="border-t border-border p-4 space-y-2">
@@ -117,6 +125,7 @@ export function DashboardLayout() {
       </div>
 
       <Toaster />
+      <CommandPalette />
     </div>
   )
 }
