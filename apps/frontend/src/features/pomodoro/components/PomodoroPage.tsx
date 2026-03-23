@@ -32,41 +32,44 @@ export function PomodoroPage() {
   const strokeDashoffset = circumference * (1 - progress)
 
   return (
-    <div className="space-y-5">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <Cpu className="h-7 w-7 text-red-500" />
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Pomodoro</h1>
-          <p className="text-sm text-muted-foreground">Timed focus sessions</p>
-        </div>
+    <div className="flex h-[calc(100vh-2rem)] flex-col gap-3 -mt-2 md:-mt-1">
+      {/* Header — compact */}
+      <div className="flex items-center gap-3 shrink-0">
+        <Cpu className="h-6 w-6 text-red-500" />
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Pomodoro</h1>
       </div>
 
-      {/* Cyber frame */}
-      <div className="relative rounded-2xl border border-red-900/30 bg-gradient-to-b from-[#0c0507] to-[#0a0a0c] p-1 overflow-hidden">
-        {/* Corner accents */}
-        <div className="absolute top-0 left-0 w-16 h-[2px] bg-gradient-to-r from-red-500 to-transparent" />
-        <div className="absolute top-0 left-0 w-[2px] h-16 bg-gradient-to-b from-red-500 to-transparent" />
-        <div className="absolute top-0 right-0 w-16 h-[2px] bg-gradient-to-l from-red-500 to-transparent" />
-        <div className="absolute top-0 right-0 w-[2px] h-16 bg-gradient-to-b from-red-500 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-16 h-[2px] bg-gradient-to-r from-red-500 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-[2px] h-16 bg-gradient-to-t from-red-500 to-transparent" />
-        <div className="absolute bottom-0 right-0 w-16 h-[2px] bg-gradient-to-l from-red-500 to-transparent" />
-        <div className="absolute bottom-0 right-0 w-[2px] h-16 bg-gradient-to-t from-red-500 to-transparent" />
+      {/* Cyber frame — fills remaining space */}
+      <div className="relative flex-1 min-h-0 rounded-2xl border-2 border-red-500/40 bg-gradient-to-b from-[#0c0507] to-[#0a0a0c] p-1 overflow-hidden">
+        {/* Corner accents — brighter, longer */}
+        <div className="absolute top-0 left-0 w-24 h-[3px] bg-gradient-to-r from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute top-0 left-0 w-[3px] h-24 bg-gradient-to-b from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute top-0 right-0 w-24 h-[3px] bg-gradient-to-l from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute top-0 right-0 w-[3px] h-24 bg-gradient-to-b from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-24 h-[3px] bg-gradient-to-r from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-[3px] h-24 bg-gradient-to-t from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute bottom-0 right-0 w-24 h-[3px] bg-gradient-to-l from-red-500 via-red-500/60 to-transparent" />
+        <div className="absolute bottom-0 right-0 w-[3px] h-24 bg-gradient-to-t from-red-500 via-red-500/60 to-transparent" />
+
+        {/* Corner glow dots */}
+        <div className="absolute top-0 left-0 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+        <div className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+        <div className="absolute bottom-0 left-0 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+        <div className="absolute bottom-0 right-0 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
 
         {/* Scan line */}
         {pomo.isRunning && (
           <motion.div
-            className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/20 to-transparent pointer-events-none"
+            className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/30 to-transparent pointer-events-none"
             animate={{ top: ['0%', '100%'] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           />
         )}
 
-        {/* Inner */}
-        <div className="relative rounded-xl bg-[#08060a]/80 backdrop-blur-sm px-8 py-8">
+        {/* Inner — flex to fill */}
+        <div className="relative flex h-full flex-col rounded-xl bg-[#08060a]/80 backdrop-blur-sm px-6 py-5">
           {/* Status bar */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <div className={cn('h-2 w-2 rounded-full', pomo.isRunning ? 'bg-red-500 animate-pulse' : 'bg-zinc-700')} />
               <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-500">
@@ -81,8 +84,9 @@ export function PomodoroPage() {
             </div>
           </div>
 
-          {/* Mode tabs — centered */}
-          <div className="flex justify-center mb-8">
+          {/* Center content — grows to fill, vertically centered */}
+          <div className="flex flex-1 flex-col items-center justify-center gap-6">
+            {/* Mode tabs */}
             <div className="flex gap-1 rounded-lg bg-zinc-900/80 border border-zinc-800 p-1">
               {modes.map((m) => (
                 <button
@@ -99,12 +103,9 @@ export function PomodoroPage() {
                 </button>
               ))}
             </div>
-          </div>
 
-          {/* Timer — big and centered */}
-          <div className="flex justify-center mb-8">
+            {/* Timer */}
             <div className="relative flex items-center justify-center">
-              {/* Glow */}
               {pomo.isRunning && (
                 <motion.div
                   className="absolute inset-0 rounded-full"
@@ -114,7 +115,6 @@ export function PomodoroPage() {
                 />
               )}
 
-              {/* Tick marks */}
               <svg width="320" height="320" className="absolute -rotate-90">
                 <circle cx="160" cy="160" r="155" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
                 {Array.from({ length: 60 }).map((_, i) => {
@@ -136,7 +136,6 @@ export function PomodoroPage() {
                 })}
               </svg>
 
-              {/* Main ring */}
               <svg width="300" height="300" className="-rotate-90">
                 <circle cx="150" cy="150" r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" />
                 <circle
@@ -154,7 +153,6 @@ export function PomodoroPage() {
                 />
               </svg>
 
-              {/* Center text */}
               <div className="absolute flex flex-col items-center">
                 <span
                   className="text-7xl font-bold font-mono text-white tabular-nums"
@@ -167,41 +165,40 @@ export function PomodoroPage() {
                 </span>
               </div>
             </div>
+
+            {/* Controls */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={pomo.reset}
+                className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition-all hover:border-zinc-600 hover:text-white hover:bg-zinc-800/50"
+              >
+                <RotateCcw className="h-5 w-5" />
+              </button>
+
+              <button
+                onClick={pomo.isRunning ? pomo.pause : pomo.start}
+                className={cn(
+                  'flex h-14 items-center gap-3 rounded-lg border px-10 font-mono text-sm uppercase tracking-wider transition-all',
+                  pomo.isRunning
+                    ? 'border-zinc-700 bg-zinc-800/50 text-zinc-300 hover:border-zinc-500'
+                    : 'border-red-800 bg-red-950/50 text-red-400 hover:bg-red-900/50 hover:border-red-600 hover:text-red-300',
+                )}
+                style={!pomo.isRunning ? { boxShadow: '0 0 20px rgba(239,68,68,0.15)' } : undefined}
+              >
+                {pomo.isRunning ? <><Pause className="h-5 w-5" /> Pause</> : <><Play className="h-5 w-5" /> Engage</>}
+              </button>
+
+              <button
+                onClick={pomo.skip}
+                className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition-all hover:border-zinc-600 hover:text-white hover:bg-zinc-800/50"
+              >
+                <SkipForward className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
-          {/* Controls — centered */}
-          <div className="flex justify-center gap-4 mb-6">
-            <button
-              onClick={pomo.reset}
-              className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition-all hover:border-zinc-600 hover:text-white hover:bg-zinc-800/50"
-            >
-              <RotateCcw className="h-5 w-5" />
-            </button>
-
-            <button
-              onClick={pomo.isRunning ? pomo.pause : pomo.start}
-              className={cn(
-                'flex h-14 items-center gap-3 rounded-lg border px-10 font-mono text-sm uppercase tracking-wider transition-all',
-                pomo.isRunning
-                  ? 'border-zinc-700 bg-zinc-800/50 text-zinc-300 hover:border-zinc-500'
-                  : 'border-red-800 bg-red-950/50 text-red-400 hover:bg-red-900/50 hover:border-red-600 hover:text-red-300',
-              )}
-              style={!pomo.isRunning ? { boxShadow: '0 0 20px rgba(239,68,68,0.15)' } : undefined}
-            >
-              {pomo.isRunning ? <><Pause className="h-5 w-5" /> Pause</> : <><Play className="h-5 w-5" /> Engage</>}
-            </button>
-
-            <button
-              onClick={pomo.skip}
-              className="flex h-12 w-12 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition-all hover:border-zinc-600 hover:text-white hover:bg-zinc-800/50"
-            >
-              <SkipForward className="h-5 w-5" />
-            </button>
-          </div>
-
-          {/* Bottom bar: sessions + project — horizontal */}
-          <div className="flex items-center justify-between border-t border-zinc-800/50 pt-5">
-            {/* Sessions */}
+          {/* Bottom bar — pinned */}
+          <div className="flex items-center justify-between border-t border-zinc-800/50 pt-4 shrink-0">
             <div className="flex items-center gap-3">
               {[1, 2, 3, 4].map((i) => (
                 <motion.div
@@ -218,7 +215,6 @@ export function PomodoroPage() {
               <span className="text-xs font-mono text-zinc-500">{pomo.completedPomodoros} SESSIONS</span>
             </div>
 
-            {/* Project selector */}
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-600">Target:</span>
               <select
